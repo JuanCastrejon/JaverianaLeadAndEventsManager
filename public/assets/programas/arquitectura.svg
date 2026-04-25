@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="title desc">
+  <title id="title">Arquitectura</title>
+  <desc id="desc">Ilustracion abstracta para el programa de Arquitectura</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#003366" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="520" fill="url(#bg)"/>
+  <circle cx="640" cy="120" r="110" fill="#C8A961" opacity="0.22"/>
+  <path d="M130 380 L250 210 L370 380 Z" fill="#ffffff" opacity="0.86"/>
+  <path d="M300 380 L430 150 L560 380 Z" fill="#FDB813" opacity="0.72"/>
+  <path d="M470 380 L600 250 L730 380 Z" fill="#ffffff" opacity="0.66"/>
+  <rect x="90" y="400" width="620" height="30" rx="15" fill="#C8A961" opacity="0.65"/>
+  <text x="80" y="88" fill="#ffffff" font-family="Arial, sans-serif" font-size="34" font-weight="700">Arquitectura</text>
+  <text x="80" y="124" fill="#C8A961" font-family="Arial, sans-serif" font-size="18" font-weight="600">Pontificia Universidad Javeriana</text>
+</svg>

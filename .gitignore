@@ -65,6 +65,9 @@ implementation_plan.md
 .supabase/
 supabase/.temp/
 
+# Recordatorio local de la prueba tecnica
+prueba-tecnica-frontend.md
+
 # Coverage
 coverage
 

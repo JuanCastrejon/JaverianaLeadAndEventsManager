@@ -50,6 +50,9 @@ function programReducer(
     }
     case 'SET_SEARCH_QUERY': {
       const searchQuery = action.payload;
+      if (state.searchQuery === searchQuery) {
+        return state;
+      }
       return {
         ...state,
         searchQuery,
@@ -62,6 +65,9 @@ function programReducer(
     }
     case 'SET_CATEGORY': {
       const selectedCategory = action.payload;
+      if (state.selectedCategory === selectedCategory) {
+        return state;
+      }
       return {
         ...state,
         selectedCategory,

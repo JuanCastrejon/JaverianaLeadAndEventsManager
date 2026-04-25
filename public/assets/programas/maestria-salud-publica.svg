@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="title desc">
+  <title id="title">Maestria en Salud Publica</title>
+  <desc id="desc">Ilustracion abstracta para el programa de Maestria en Salud Publica</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#064e3b" />
+      <stop offset="100%" stop-color="#0ea5e9" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="520" fill="url(#bg)"/>
+  <circle cx="620" cy="120" r="110" fill="#ffffff" opacity="0.14"/>
+  <path d="M400 140 C470 140, 520 190, 520 250 C520 330, 460 380, 400 400 C340 380, 280 330, 280 250 C280 190, 330 140, 400 140 Z" fill="#ffffff" opacity="0.9"/>
+  <path d="M400 185 V355" stroke="#ef4444" stroke-width="28" stroke-linecap="round"/>
+  <path d="M315 270 H485" stroke="#ef4444" stroke-width="28" stroke-linecap="round"/>
+  <text x="80" y="450" fill="#ffffff" font-family="Arial, sans-serif" font-size="30" font-weight="700">Salud Publica</text>
+</svg>

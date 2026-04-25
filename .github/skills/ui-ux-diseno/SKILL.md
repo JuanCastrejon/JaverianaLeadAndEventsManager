@@ -55,3 +55,13 @@ Implementar una interfaz que respete la identidad visual de la Pontificia Univer
 3. **Accesibilidad base**: contraste adecuado, estados interactivos claros, foco visible.
 4. **Responsive**: Mobile-first (375px → 768px → 1280px).
 5. **Animaciones**: Framer Motion para transiciones, nunca animaciones que bloqueen interacción.
+
+## Cierre de calidad visual (obligatorio)
+
+Antes de cerrar una fase con alcance UI:
+
+- Verificar navegación y jerarquía visual directamente en navegador local.
+- Confirmar que los estados `loading`, `empty` y `error` son visibles y comprensibles.
+- Verificar contraste y foco visible en controles interactivos.
+- Verificar comportamiento responsive en 375px, 768px y 1280px.
+- Si existe PR con preview, validar también la versión remota para detectar diferencias de entorno.
