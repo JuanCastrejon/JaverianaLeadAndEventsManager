@@ -38,6 +38,18 @@ temp/
 # Copilot/local AI workspace artifacts
 .copilot/
 
+# Agent customization/personalization (local, internal)
+.github/AGENTS.md
+.github/VERSIONADO.md
+.github/links.md
+.github/instructions/agent-personalizacion.instructions.md
+.github/instructions/react-vite.instructions.md
+.github/instructions/sql-database.instructions.md
+.github/skills/
+.github/prompts/
+.agents/
+implementation_plan.md
+
 # Environment
 .env
 .env.local
@@ -58,3 +70,9 @@ coverage
 # Testing outputs
 playwright-report/
 test-results/
+
+# Local VS Code settings (personal environment)
+.vscode/settings.json
+.vscode/mcp.json
+.vscode/extensions.json
+.github/MCP.md
