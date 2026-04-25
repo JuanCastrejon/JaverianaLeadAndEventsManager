@@ -751,6 +751,7 @@ git add . && git commit -m "feat: initial implementation" && git push -u origin 
 3. Cada fase debe terminar con commit atómico y mensaje claro.
 4. Probar en navegador real al cierre de cada bloque, no solo al final.
 5. Mantener siempre API real activa (Supabase) y fallback local para continuidad de demo.
+6. Nombrar ramas por accion/resultado tecnico (por ejemplo, `feature/supabase-productivo`) y evitar nombres por fase (`feature/fase1-*`, `feature/fase2-*`).
 
 ### Definición de Éxito Final
 
