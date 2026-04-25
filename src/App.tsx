@@ -59,7 +59,7 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-surface text-text-primary transition-colors duration-300 dark:bg-surface-dark">
-      <Header navItems={NAV_ITEMS as { id: string; label: string }[]} mode={mode} onToggleTheme={toggleTheme} />
+      <Header navItems={NAV_ITEMS} mode={mode} onToggleTheme={toggleTheme} />
 
       <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <section id={SECTIONS.HERO} className="relative overflow-hidden rounded-[2rem] border border-javeriana-blue/10 bg-gradient-to-br from-white via-javeriana-blue/5 to-javeriana-gold/15 p-8 shadow-card dark:border-javeriana-gold/20 dark:from-surface-dark dark:via-javeriana-blue/20 dark:to-javeriana-gold/10 md:p-12">

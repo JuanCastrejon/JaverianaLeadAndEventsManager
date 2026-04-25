@@ -6,7 +6,7 @@ interface NavItem {
 }
 
 interface HeaderProps {
-  navItems: NavItem[];
+  navItems: ReadonlyArray<NavItem>;
   mode: ThemeMode;
   onToggleTheme: () => void;
 }
