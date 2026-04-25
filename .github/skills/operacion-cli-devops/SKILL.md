@@ -25,6 +25,21 @@ No abrir PR final ni mergear a ramas de integración si existen checks fallidos 
 5. Validar despliegue preview en Vercel (si aplica).
 6. Merge por PR con historial limpio.
 
+## Convención de nombres de rama (obligatoria)
+
+- Nombrar ramas por acción/resultado técnico, no por número de fase.
+- Formato: `feature/<accion-kebab-case>`, `fix/<accion-kebab-case>`, `docs/<accion-kebab-case>`.
+- Evitar nombres como `feature/fase1-*`, `feature/fase2-*`, etc.
+
+Ejemplos recomendados:
+- `feature/supabase-productivo`
+- `feature/programas-filtro-avanzado`
+- `feature/leads-validacion-normalizacion`
+
+Ejemplos no recomendados:
+- `feature/fase1-supabase`
+- `feature/fase2-ui`
+
 ## Comandos base GitHub CLI
 
 - Estado de PRs: `gh pr status`
