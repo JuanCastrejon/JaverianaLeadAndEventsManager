@@ -75,3 +75,4 @@ test-results/
 .vscode/settings.json
 .vscode/mcp.json
 .vscode/extensions.json
+.github/MCP.md
