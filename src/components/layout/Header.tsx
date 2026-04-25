@@ -16,9 +16,11 @@ export function Header({ navItems, mode, onToggleTheme }: HeaderProps) {
     <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/90 shadow-header backdrop-blur-md dark:border-gray-800 dark:bg-surface-dark/90">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
         <a href="#hero" className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-javeriana-blue text-white">
-            <span className="font-bold">J</span>
-          </div>
+          <img
+            src="/assets/logo/Logo-PUJ-Bogota-90.svg"
+            alt="Pontificia Universidad Javeriana"
+            className="h-10 w-10 shrink-0 rounded-lg bg-white object-contain p-1 shadow-sm"
+          />
           <div>
             <p className="font-[family-name:var(--font-family-display)] text-lg font-bold text-javeriana-blue dark:text-javeriana-gold-light">
               Javeriana Lead Manager

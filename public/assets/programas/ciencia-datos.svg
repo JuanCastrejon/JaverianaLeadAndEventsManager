@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="title desc">
+  <title id="title">Ciencia de Datos</title>
+  <desc id="desc">Ilustracion abstracta para el programa de Ciencia de Datos</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#0ea5e9" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="520" fill="url(#bg)"/>
+  <circle cx="180" cy="160" r="72" fill="#C8A961" opacity="0.9"/>
+  <circle cx="360" cy="120" r="42" fill="#ffffff" opacity="0.78"/>
+  <circle cx="520" cy="200" r="58" fill="#FDB813" opacity="0.88"/>
+  <circle cx="650" cy="120" r="34" fill="#ffffff" opacity="0.7"/>
+  <path d="M180 160 L360 120 L520 200 L650 120" fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+  <text x="80" y="450" fill="#ffffff" font-family="Arial, sans-serif" font-size="34" font-weight="700">Ciencia de Datos</text>
+</svg>

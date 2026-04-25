@@ -1,5 +1,6 @@
 import type { Program } from '../../types';
 import { getFacultyImagePath } from '../../utils/facultyImages';
+import { getProgramImagePath } from '../../utils/programImages';
 
 interface ProgramCardProps {
   program: Program;
@@ -16,7 +17,7 @@ function categoryBadgeClasses(category: Program['category']) {
 }
 
 export function ProgramCard({ program }: ProgramCardProps) {
-  const imageUrl = program.image_url || getFacultyImagePath(program.faculty);
+  const imageUrl = program.image_url || getProgramImagePath(program.name) || getFacultyImagePath(program.faculty);
 
   return (
     <article className="group overflow-hidden rounded-card border border-gray-100 bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover dark:border-gray-800 dark:bg-surface-dark-alt">
@@ -27,7 +28,7 @@ export function ProgramCard({ program }: ProgramCardProps) {
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           loading="lazy"
           onError={(event) => {
-            event.currentTarget.src = getFacultyImagePath(program.faculty);
+            event.currentTarget.src = getProgramImagePath(program.name) || getFacultyImagePath(program.faculty);
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-javeriana-blue/70 via-javeriana-blue/30 to-transparent" />

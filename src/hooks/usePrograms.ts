@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useCallback, useContext } from 'react';
 import { ProgramContext } from '../context/ProgramContext';
 
 export function usePrograms() {
@@ -9,13 +9,13 @@ export function usePrograms() {
 
   const { state, dispatch } = context;
 
-  function setSearchQuery(query: string) {
+  const setSearchQuery = useCallback((query: string) => {
     dispatch({ type: 'SET_SEARCH_QUERY', payload: query });
-  }
+  }, [dispatch]);
 
-  function setCategory(category: string) {
+  const setCategory = useCallback((category: string) => {
     dispatch({ type: 'SET_CATEGORY', payload: category });
-  }
+  }, [dispatch]);
 
   return {
     programs: state.filteredPrograms,
