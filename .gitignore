@@ -1,0 +1,60 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Runtime files
+*.pid
+*.seed
+*.pid.lock
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Cache/build artifacts
+.cache/
+.turbo/
+tmp/
+temp/
+*.tsbuildinfo
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Copilot/local AI workspace artifacts
+.copilot/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Keep templates committed
+!.env.example
+
+# Vercel
+.vercel
+
+# Supabase local state
+.supabase/
+
+# Coverage
+coverage
+
+# Testing outputs
+playwright-report/
+test-results/

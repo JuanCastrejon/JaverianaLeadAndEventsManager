@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Playfair+Display:wght@700&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  /* Colores institucionales Javeriana */
+  --color-javeriana-blue: #003366;
+  --color-javeriana-blue-light: #0a4d8c;
+  --color-javeriana-blue-dark: #001f3f;
+  --color-javeriana-gold: #C8A961;
+  --color-javeriana-gold-bright: #FDB813;
+  --color-javeriana-gold-light: #d4bc7e;
+
+  /* Superficies */
+  --color-surface: #FFFFFF;
+  --color-surface-alt: #F8F9FA;
+  --color-surface-dark: #0f1729;
+  --color-surface-dark-alt: #1a2332;
+
+  /* Texto */
+  --color-text-primary: #1a1a2e;
+  --color-text-secondary: #4a5568;
+  --color-text-light: #f7fafc;
+
+  /* Estado */
+  --color-success: #22c55e;
+  --color-error: #ef4444;
+  --color-warning: #f59e0b;
+
+  /* Tipografía */
+  --font-family-body: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-family-display: 'Playfair Display', Georgia, serif;
+
+  /* Sombras */
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-card-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --shadow-header: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+
+  /* Border radius */
+  --radius-capsule: 50px;
+  --radius-card: 12px;
+  --radius-input: 8px;
+}
+
+/* Base styles */
+body {
+  font-family: var(--font-family-body);
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface-alt);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-javeriana-blue);
+  border-radius: 4px;
+}
+
+/* Selection styling */
+::selection {
+  background: var(--color-javeriana-gold);
+  color: var(--color-text-primary);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
