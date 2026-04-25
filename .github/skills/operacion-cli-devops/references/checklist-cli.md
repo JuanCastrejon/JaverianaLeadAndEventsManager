@@ -3,6 +3,7 @@
 ## Antes de abrir PR
 
 - [ ] Rama correcta (`feature/*`, `fix/*`, `docs/*`)
+- [ ] Rama nombrada por accion (no por fase), por ejemplo: `feature/supabase-productivo`
 - [ ] `git status` limpio de archivos no intencionales
 - [ ] Pruebas minimas del alcance ejecutadas
 - [ ] Sin secretos ni archivos locales en staging
