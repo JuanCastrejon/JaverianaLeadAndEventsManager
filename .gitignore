@@ -49,7 +49,6 @@ temp/
 .github/prompts/
 .agents/
 implementation_plan.md
-README.md
 
 # Environment
 .env
