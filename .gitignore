@@ -63,6 +63,7 @@ implementation_plan.md
 
 # Supabase local state
 .supabase/
+supabase/.temp/
 
 # Coverage
 coverage
