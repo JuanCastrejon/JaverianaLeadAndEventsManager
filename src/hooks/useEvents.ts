@@ -9,10 +9,12 @@ export function useEvents() {
   }
 
   const { events, loading, error } = context.state;
+  const { reloadEvents } = context;
 
   return {
     events,
     loading,
     error,
+    reloadEvents,
   };
 }

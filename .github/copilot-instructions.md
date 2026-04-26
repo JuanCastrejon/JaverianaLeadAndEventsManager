@@ -10,7 +10,7 @@
 
 | Capa | Tecnología |
 |------|-----------|
-| Frontend | Vite 6 + React 19 + TypeScript (modo estricto) |
+| Frontend | Vite 8 + React 19 + TypeScript (modo estricto) |
 | Estilos | Tailwind CSS 4 |
 | Gestión de Estado | Context API + useReducer |
 | Backend/API | Supabase (PostgreSQL + PostgREST automático) |
@@ -26,12 +26,14 @@ src/
 ├── components/
 │   ├── ui/          → Primitivos reutilizables (Button, Input, Card, Badge, etc.)
 │   ├── layout/      → Header, Footer, Layout, SectionTitle
+│   ├── events/      → EventCard, EventGrid
 │   ├── programs/    → ProgramCard, ProgramGrid, ProgramFilters
 │   └── leads/       → LeadForm, LeadList, LeadStats
-├── context/         → ProgramContext, LeadContext, ThemeContext (useReducer)
-├── hooks/           → usePrograms, useLeads, useLocalStorage, useDebounce, useTheme
+├── components/sections/ → ProgramSection, EventSection, LeadSection (lazy-loaded)
+├── context/         → ProgramContext, EventContext, LeadContext, ThemeContext (useReducer)
+├── hooks/           → usePrograms, useEvents, useLeads, useLocalStorage, useDebounce, useTheme
 ├── lib/             → supabase.ts (cliente Supabase)
-├── services/        → programService.ts, leadService.ts (fetch REST)
+├── services/        → programService.ts, eventService.ts, leadService.ts (fetch REST)
 ├── types/           → program.ts, lead.ts, database.ts, state.ts
 ├── utils/           → validators.ts, normalizers.ts, constants.ts
 ├── __tests__/       → Tests unitarios
@@ -69,7 +71,7 @@ src/
 ## Contexto de Negocio
 
 Prueba técnica para la Dirección de Mercadeo de la Pontificia Universidad Javeriana:
-- SPA que permite visualizar oferta académica (programas) y gestionar leads
+- SPA que permite visualizar oferta académica (programas), eventos y gestionar leads
 - Consumo de API REST desde Supabase
 - Filtrado avanzado sin recarga
 - Formulario de leads con validación y normalización

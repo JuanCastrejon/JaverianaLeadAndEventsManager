@@ -2,6 +2,7 @@ export const STORAGE_KEYS = {
   LEADS: 'javeriana_leads',
   THEME: 'javeriana_theme',
   PROGRAMS_CACHE: 'javeriana_programs_cache',
+  EVENTS_CACHE: 'javeriana_events_cache',
 } as const;
 
 export const API_CONFIG = {
@@ -17,4 +18,5 @@ export const SECTIONS = {
   EVENTS: 'events',
   LEAD_FORM: 'lead-form',
   LEADS: 'leads',
+  API_DOCS: 'api-docs',
 } as const;

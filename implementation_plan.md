@@ -714,6 +714,16 @@ git add . && git commit -m "feat: initial implementation" && git push -u origin 
 
 ### Fase 6 — Swagger y Cierre de Entrega (45 min)
 
+> [!NOTE]
+> Estado actual (2026-04-26): completada.
+
+**Checklist de cierre Fase 6**
+- [x] Integración de Swagger UI embebido en la SPA (`#api-docs`).
+- [x] Deploy final en Vercel (producción).
+- [x] Verificación funcional local de API Docs (sección visible y carga de Swagger).
+- [x] Push final del repositorio con commits limpios.
+- [x] Registro de URL final de producción.
+
 **Objetivo**: cerrar con documentación API visible y despliegue final.
 
 **Incluye**:
@@ -725,6 +735,13 @@ git add . && git commit -m "feat: initial implementation" && git push -u origin 
 **Entregables**:
 - URL pública funcional (app).
 - Repositorio público con README completo.
+
+**Evidencia operativa del cierre**
+- Build local: `npm run build` OK.
+- Test unitario: `npm run test` OK.
+- Smoke E2E: `npm run test:e2e:smoke` OK.
+- Producción Vercel: `https://javeriana-lead-events-manager.vercel.app`.
+- Verificación post-deploy: carga de Programas (54), Eventos (13) y sección API Docs con Swagger UI activo.
 
 **Criterio de salida (DoD)**:
 - App y vistas principales funcionando en producción.

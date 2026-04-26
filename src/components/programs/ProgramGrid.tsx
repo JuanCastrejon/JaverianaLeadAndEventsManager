@@ -6,6 +6,7 @@ interface ProgramGridProps {
   programs: Program[];
   loading: boolean;
   error: string | null;
+  onRetry?: () => void | Promise<void>;
 }
 
 function ProgramSkeletonCard() {
@@ -21,7 +22,7 @@ function ProgramSkeletonCard() {
   );
 }
 
-export function ProgramGrid({ programs, loading, error }: ProgramGridProps) {
+export function ProgramGrid({ programs, loading, error, onRetry }: ProgramGridProps) {
   if (loading) {
     return (
       <motion.div
@@ -47,6 +48,17 @@ export function ProgramGrid({ programs, loading, error }: ProgramGridProps) {
       >
         <p className="font-semibold">No fue posible cargar los programas.</p>
         <p className="mt-1 text-sm">{error}</p>
+        {onRetry ? (
+          <button
+            type="button"
+            className="mt-4 inline-flex items-center rounded-full border border-red-300 px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-red-700 transition hover:bg-red-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 dark:border-red-700 dark:text-red-200 dark:hover:bg-red-900/30"
+            onClick={() => {
+              void onRetry();
+            }}
+          >
+            Reintentar carga
+          </button>
+        ) : null}
       </motion.div>
     );
   }

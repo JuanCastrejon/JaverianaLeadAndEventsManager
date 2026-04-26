@@ -7,7 +7,7 @@ export function usePrograms() {
     throw new Error('usePrograms debe usarse dentro de un ProgramProvider');
   }
 
-  const { state, dispatch } = context;
+  const { state, dispatch, reloadPrograms } = context;
 
   const setSearchQuery = useCallback((query: string) => {
     dispatch({ type: 'SET_SEARCH_QUERY', payload: query });
@@ -24,6 +24,7 @@ export function usePrograms() {
     selectedCategory: state.selectedCategory,
     loading: state.loading,
     error: state.error,
+    reloadPrograms,
     setSearchQuery,
     setCategory,
   };

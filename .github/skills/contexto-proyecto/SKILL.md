@@ -25,12 +25,12 @@ Skill que proporciona el contexto completo del proyecto para cualquier tarea de 
 ## Resumen del Proyecto
 
 ### Qué es
-Prueba técnica para Desarrollador Frontend en la Dirección de Mercadeo de la Pontificia Universidad Javeriana. SPA para visualizar oferta académica y gestionar registro de leads.
+Prueba técnica para Desarrollador Frontend en la Dirección de Mercadeo de la Pontificia Universidad Javeriana. SPA para visualizar oferta académica, eventos y gestionar registro de leads.
 
 ### Stack
-- **Frontend**: Vite 6 + React 19 + TypeScript strict
+- **Frontend**: Vite 8 + React 19 + TypeScript strict
 - **Estilos**: Tailwind CSS 4 con design tokens Javeriana
-- **Estado**: Context API + useReducer (3 contextos: Program, Lead, Theme)
+- **Estado**: Context API + useReducer (4 contextos: Program, Event, Lead, Theme)
 - **Backend/API**: Supabase (PostgreSQL + PostgREST)
 - **Testing**: Vitest + React Testing Library + Playwright (E2E opcional)
 - **Deploy**: Vercel (SPA)
@@ -41,6 +41,7 @@ Prueba técnica para Desarrollador Frontend en la Dirección de Mercadeo de la P
 | Context | Responsabilidad |
 |---------|----------------|
 | `ProgramContext` | Programas académicos, filtros, loading/error |
+| `EventContext` | Eventos académicos/culturales desde Supabase |
 | `LeadContext` | Leads registrados, localStorage sync, estadísticas |
 | `ThemeContext` | Dark mode, preferencia del sistema |
 
@@ -48,13 +49,15 @@ Prueba técnica para Desarrollador Frontend en la Dirección de Mercadeo de la P
 ```
 React SPA → fetch REST → Supabase PostgREST → PostgreSQL
 React SPA → localStorage → Leads (persistencia obligatoria)
+React SPA → lazy-loaded sections → chunks separados por dominio
 ```
 
 ### Requerimientos Funcionales
 1. Visualización de programas en cards desde API REST
-2. Filtrado por nombre (debounce) + categoría sin recarga
-3. Formulario de leads con validación email y normalización
-4. Persistencia en localStorage
+2. Visualización de eventos institucionales desde API REST
+3. Filtrado por nombre (debounce) + categoría sin recarga
+4. Formulario de leads con validación email y normalización
+5. Persistencia en localStorage
 
 ## Validación operativa por fases
 

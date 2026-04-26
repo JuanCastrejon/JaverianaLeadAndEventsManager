@@ -1,4 +1,4 @@
-import { createContext, useReducer, useEffect, type ReactNode } from 'react';
+import { createContext, useCallback, useEffect, useReducer, useRef, type ReactNode } from 'react';
 import type { ProgramState, ProgramAction, Program } from '../types';
 import { fetchPrograms } from '../services/programService';
 
@@ -109,6 +109,7 @@ function programReducer(
 interface ProgramContextValue {
   state: ProgramState;
   dispatch: React.Dispatch<ProgramAction>;
+  reloadPrograms: () => Promise<void>;
 }
 
 export const ProgramContext = createContext<ProgramContextValue | null>(null);
@@ -119,35 +120,35 @@ interface ProgramProviderProps {
 
 export function ProgramProvider({ children }: ProgramProviderProps) {
   const [state, dispatch] = useReducer(programReducer, initialState);
+  const lastRequestId = useRef(0);
 
-  useEffect(() => {
-    let cancelled = false;
+  const reloadPrograms = useCallback(async () => {
+    const requestId = lastRequestId.current + 1;
+    lastRequestId.current = requestId;
 
-    async function loadPrograms() {
-      try {
-        dispatch({ type: 'SET_LOADING', payload: true });
-        const programs = await fetchPrograms();
-        if (!cancelled) {
-          dispatch({ type: 'SET_PROGRAMS', payload: programs });
-        }
-      } catch (err) {
-        if (!cancelled) {
-          const message =
-            err instanceof Error ? err.message : 'Error desconocido';
-          dispatch({ type: 'SET_ERROR', payload: message });
-        }
+    try {
+      dispatch({ type: 'SET_LOADING', payload: true });
+      const programs = await fetchPrograms();
+
+      if (lastRequestId.current === requestId) {
+        dispatch({ type: 'SET_PROGRAMS', payload: programs });
       }
+    } catch (err) {
+      if (lastRequestId.current !== requestId) {
+        return;
+      }
+
+      const message = err instanceof Error ? err.message : 'Error desconocido';
+      dispatch({ type: 'SET_ERROR', payload: message });
     }
-
-    loadPrograms();
-
-    return () => {
-      cancelled = true;
-    };
   }, []);
 
+  useEffect(() => {
+    void reloadPrograms();
+  }, [reloadPrograms]);
+
   return (
-    <ProgramContext.Provider value={{ state, dispatch }}>
+    <ProgramContext.Provider value={{ state, dispatch, reloadPrograms }}>
       {children}
     </ProgramContext.Provider>
   );

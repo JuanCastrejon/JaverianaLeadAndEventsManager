@@ -77,3 +77,46 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+/* Swagger UI theming */
+.swagger-shell .swagger-ui {
+  font-family: var(--font-family-body);
+}
+
+.swagger-shell .swagger-ui .topbar {
+  display: none;
+}
+
+.swagger-shell .swagger-ui .info .title {
+  color: var(--color-javeriana-blue);
+  font-family: var(--font-family-display);
+}
+
+.dark .swagger-shell .swagger-ui,
+.dark .swagger-shell .swagger-ui .scheme-container,
+.dark .swagger-shell .swagger-ui .opblock-tag,
+.dark .swagger-shell .swagger-ui .opblock .opblock-summary {
+  background-color: transparent;
+  color: #e5e7eb;
+}
+
+.dark .swagger-shell .swagger-ui .opblock-tag,
+.dark .swagger-shell .swagger-ui .parameter__name,
+.dark .swagger-shell .swagger-ui .responses-inner h4,
+.dark .swagger-shell .swagger-ui .responses-inner h5,
+.dark .swagger-shell .swagger-ui .response-col_status,
+.dark .swagger-shell .swagger-ui .response-col_links,
+.dark .swagger-shell .swagger-ui .tab li,
+.dark .swagger-shell .swagger-ui .model-title,
+.dark .swagger-shell .swagger-ui .renderedMarkdown p,
+.dark .swagger-shell .swagger-ui .info p,
+.dark .swagger-shell .swagger-ui .info li,
+.dark .swagger-shell .swagger-ui label {
+  color: #e5e7eb;
+}
+
+.dark .swagger-shell .swagger-ui .opblock-tag,
+.dark .swagger-shell .swagger-ui .opblock,
+.dark .swagger-shell .swagger-ui .scheme-container {
+  border-color: rgba(200, 169, 97, 0.25);
+}
