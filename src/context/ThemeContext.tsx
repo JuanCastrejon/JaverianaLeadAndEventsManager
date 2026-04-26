@@ -17,7 +17,7 @@ function getStoredTheme(): ThemeMode {
   } catch {
     // noop
   }
-  return 'system';
+  return 'light';
 }
 
 function resolveTheme(mode: ThemeMode): 'light' | 'dark' {

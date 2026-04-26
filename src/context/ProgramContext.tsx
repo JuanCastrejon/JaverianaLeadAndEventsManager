@@ -11,17 +11,27 @@ const initialState: ProgramState = {
   error: null,
 };
 
+/**
+ * Elimina diacríticos (tildes, diéresis) de un string para búsqueda por proximidad.
+ * "Ingeniería" → "ingenieria", "Educación" → "educacion"
+ */
+function stripDiacritics(text: string): string {
+  return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+}
+
 function filterPrograms(
   programs: Program[],
   searchQuery: string,
   selectedCategory: string,
 ): Program[] {
+  const normalizedQuery = stripDiacritics(searchQuery);
+
   return programs.filter((program) => {
     const matchesSearch =
-      !searchQuery ||
-      program.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      program.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      program.faculty.toLowerCase().includes(searchQuery.toLowerCase());
+      !normalizedQuery ||
+      stripDiacritics(program.name).includes(normalizedQuery) ||
+      stripDiacritics(program.description).includes(normalizedQuery) ||
+      stripDiacritics(program.faculty).includes(normalizedQuery);
 
     const matchesCategory =
       !selectedCategory || program.category === selectedCategory;
