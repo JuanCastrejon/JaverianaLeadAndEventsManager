@@ -29,7 +29,7 @@ export function EventCard({ event }: EventCardProps) {
       aria-label={`Ver evento ${event.name}`}
       whileHover={{ y: -6 }}
       transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-      className="group block h-[33rem] overflow-hidden rounded-card border border-gray-100 bg-white shadow-card transition-all duration-300 hover:shadow-card-hover dark:border-gray-800 dark:bg-surface-dark-alt"
+      className="group block h-132 overflow-hidden rounded-card border border-gray-100 bg-white shadow-card transition-all duration-300 hover:shadow-card-hover dark:border-gray-800 dark:bg-surface-dark-alt"
     >
       <div className="relative flex h-44 items-end overflow-hidden bg-linear-to-br from-javeriana-blue/95 via-javeriana-blue-light to-javeriana-gold/75 p-4 sm:h-48">
         <div className="absolute inset-0 bg-radial from-javeriana-gold/25 via-transparent to-transparent" />

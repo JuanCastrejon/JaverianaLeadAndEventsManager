@@ -73,20 +73,12 @@ export async function insertLeadRemote(formData: LeadFormData): Promise<boolean>
   return true;
 }
 
-export async function fetchLeadsRemote(): Promise<Lead[]> {
-  if (!supabase) {
-    return [];
-  }
-
-  const { data, error } = await supabase
-    .from(API_CONFIG.LEADS_TABLE)
-    .select('*')
-    .order('created_at', { ascending: false });
-
-  if (error) {
-    console.error('[LeadService] Error al cargar leads remotos:', error.message);
-    return [];
-  }
-
-  return (data ?? []) as Lead[];
-}
+/**
+ * fetchLeadsRemote() — ELIMINADA intencionalmente.
+ *
+ * La tabla leads NO tiene policy SELECT para anon (protección de PII).
+ * La lectura remota solo es posible con rol authenticated (futuro panel admin)
+ * o via la vista anonimizada leads_admin_view.
+ *
+ * El frontend usa exclusivamente localStorage para la vista de leads.
+ */
