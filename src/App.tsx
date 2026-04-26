@@ -2,7 +2,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { SectionTitle } from './components/layout/SectionTitle';
-import { LeadPreviewList } from './components/leads/LeadPreviewList';
+import { LeadForm } from './components/leads/LeadForm';
+import { LeadList } from './components/leads/LeadList';
+import { LeadStats } from './components/leads/LeadStats';
 import { ProgramFilters } from './components/programs/ProgramFilters';
 import { ProgramGrid } from './components/programs/ProgramGrid';
 import { useDebounce } from './hooks/useDebounce';
@@ -15,7 +17,7 @@ import { API_CONFIG, SECTIONS } from './utils/constants';
 const NAV_ITEMS = [
   { id: SECTIONS.HERO, label: 'Inicio' },
   { id: SECTIONS.PROGRAMS, label: 'Programas' },
-  { id: SECTIONS.LEAD_FORM, label: 'Inscripcion' },
+  { id: SECTIONS.LEAD_FORM, label: 'Inscripción' },
   { id: SECTIONS.LEADS, label: 'Leads' },
 ] as const;
 
@@ -31,7 +33,7 @@ export function App() {
     setSearchQuery,
     setCategory,
   } = usePrograms();
-  const { leads, totalLeads } = useLeads();
+  const { leads, totalLeads, deleteLead } = useLeads();
   const [searchInput, setSearchInput] = useState(searchQuery);
   const debouncedSearch = useDebounce(searchInput, API_CONFIG.DEBOUNCE_MS);
 
@@ -66,13 +68,13 @@ export function App() {
           <div className="grid gap-8 lg:grid-cols-[2fr_1fr] lg:items-end">
             <div>
               <p className="inline-flex rounded-full border border-javeriana-gold/45 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-javeriana-blue dark:text-javeriana-gold-light">
-                Oferta Academica Javeriana
+                Oferta Académica Javeriana
               </p>
               <h1 className="mt-4 font-[family-name:var(--font-family-display)] text-4xl font-bold text-javeriana-blue dark:text-white md:text-5xl">
-                Nucleo SPA para exploracion de programas y gestion de leads
+                Gestión de prospectos y oferta académica
               </h1>
               <p className="mt-4 max-w-3xl text-base text-text-secondary dark:text-gray-300 md:text-lg">
-                Esta fase consolida la experiencia base: navegacion por secciones, catalogo filtrable de programas y espacio de captura para siguientes iteraciones.
+                Explora la oferta de programas, registra tu interés y consulta el estado de los prospectos académicos en tiempo real.
               </p>
             </div>
 
@@ -93,10 +95,11 @@ export function App() {
           </div>
         </section>
 
+        {/* ── Programas Académicos ── */}
         <section id={SECTIONS.PROGRAMS} className="mt-16 scroll-mt-28">
           <SectionTitle
-            title="Programas academicos"
-            subtitle="Explora la oferta por nombre, facultad o categoria. El filtrado ocurre sin recargas para mantener una experiencia fluida en cualquier dispositivo."
+            title="Programas académicos"
+            subtitle="Explora la oferta por nombre, facultad o categoría. El filtrado ocurre sin recargas para mantener una experiencia fluida en cualquier dispositivo."
           />
 
           <ProgramFilters
@@ -111,41 +114,32 @@ export function App() {
           <ProgramGrid programs={programs} loading={loading} error={error} />
         </section>
 
+        {/* ── Formulario de Inscripción ── */}
         <section id={SECTIONS.LEAD_FORM} className="mt-16 scroll-mt-28">
           <SectionTitle
-            title="Inscripcion"
-            subtitle="La fase siguiente habilitara el formulario completo con validaciones y sincronizacion local/remota."
+            title="Registro de interés"
+            subtitle="Completa el formulario para registrar tu interés en un programa académico. Tus datos se almacenan localmente y se sincronizan con el servidor."
           />
 
-          <div className="grid gap-4 md:grid-cols-3">
-            <article className="rounded-card border border-gray-100 bg-white p-6 shadow-card dark:border-gray-800 dark:bg-surface-dark-alt">
-              <h3 className="font-semibold text-javeriana-blue dark:text-javeriana-gold-light">Validacion en vivo</h3>
-              <p className="mt-2 text-sm text-text-secondary dark:text-gray-300">
-                Reglas para campos obligatorios, formato de email y recomendacion de dominio institucional.
-              </p>
-            </article>
-            <article className="rounded-card border border-gray-100 bg-white p-6 shadow-card dark:border-gray-800 dark:bg-surface-dark-alt">
-              <h3 className="font-semibold text-javeriana-blue dark:text-javeriana-gold-light">Normalizacion</h3>
-              <p className="mt-2 text-sm text-text-secondary dark:text-gray-300">
-                Limpieza de datos antes del envio para garantizar consistencia en el almacenamiento.
-              </p>
-            </article>
-            <article className="rounded-card border border-gray-100 bg-white p-6 shadow-card dark:border-gray-800 dark:bg-surface-dark-alt">
-              <h3 className="font-semibold text-javeriana-blue dark:text-javeriana-gold-light">Persistencia dual</h3>
-              <p className="mt-2 text-sm text-text-secondary dark:text-gray-300">
-                Registro local inmediato y sincronizacion remota en Supabase para la vista administrativa.
-              </p>
-            </article>
-          </div>
+          <LeadForm />
         </section>
 
+        {/* ── Leads Registrados ── */}
         <section id={SECTIONS.LEADS} className="mt-16 scroll-mt-28">
           <SectionTitle
             title="Leads registrados"
-            subtitle="Vista preliminar de leads en cache local para validar la estructura de navegacion administrativa del modulo."
+            subtitle="Vista administrativa de prospectos registrados con métricas y gestión básica."
           />
 
-          <LeadPreviewList leads={leads} />
+          <LeadStats leads={leads} programs={allPrograms} />
+
+          <div className="mt-6">
+            <LeadList
+              leads={leads}
+              programs={allPrograms}
+              onDelete={deleteLead}
+            />
+          </div>
         </section>
       </main>
 
