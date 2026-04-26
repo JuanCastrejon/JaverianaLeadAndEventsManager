@@ -82,6 +82,13 @@ export function LeadForm() {
 
     if (!result.success) {
       setErrors(result.errors);
+      setTouched((prev) => {
+        const next = { ...prev };
+        Object.keys(result.errors).forEach((field) => {
+          next[field] = true;
+        });
+        return next;
+      });
       setSubmitting(false);
       return;
     }

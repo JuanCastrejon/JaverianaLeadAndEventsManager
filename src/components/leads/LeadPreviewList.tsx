@@ -8,7 +8,7 @@ export function LeadPreviewList({ leads }: LeadPreviewListProps) {
   if (leads.length === 0) {
     return (
       <div className="rounded-card border border-dashed border-javeriana-blue/25 bg-javeriana-blue/5 p-6 text-sm text-javeriana-blue dark:border-javeriana-gold/30 dark:bg-javeriana-gold/5 dark:text-javeriana-gold-light">
-        Aun no hay leads registrados. En la siguiente fase se habilitara el formulario completo.
+        Aún no hay leads registrados. En la siguiente fase se habilitará el formulario completo.
       </div>
     );
   }

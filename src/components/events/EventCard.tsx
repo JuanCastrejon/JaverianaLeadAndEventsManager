@@ -7,11 +7,14 @@ interface EventCardProps {
 }
 
 function formatEventDate(dateValue: string): string {
+  const [year, month, day] = dateValue.split('-').map(Number);
+  const localDate = new Date(year, month - 1, day);
+
   return new Intl.DateTimeFormat('es-CO', {
     day: '2-digit',
     month: 'short',
     year: 'numeric',
-  }).format(new Date(dateValue));
+  }).format(localDate);
 }
 
 export function EventCard({ event }: EventCardProps) {

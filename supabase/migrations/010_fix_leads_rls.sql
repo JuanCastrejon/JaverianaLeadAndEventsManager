@@ -11,10 +11,10 @@ CREATE POLICY "anon_insert_leads" ON leads
   TO anon
   WITH CHECK (true);
 
--- Política SELECT: cualquier usuario anon puede leer leads (vista administrativa)
-CREATE POLICY "anon_select_leads" ON leads
+-- Política SELECT: restringida a usuarios autenticados
+CREATE POLICY "auth_select_leads" ON leads
   FOR SELECT
-  TO anon
+  TO authenticated
   USING (true);
 
 -- Política DELETE: solo authenticated (futuro)

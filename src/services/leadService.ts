@@ -80,7 +80,7 @@ export async function fetchLeadsRemote(): Promise<Lead[]> {
 
   const { data, error } = await supabase
     .from(API_CONFIG.LEADS_TABLE)
-    .select('*, programs(name)')
+    .select('*')
     .order('created_at', { ascending: false });
 
   if (error) {

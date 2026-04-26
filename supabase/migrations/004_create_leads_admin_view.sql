@@ -19,4 +19,4 @@ FROM leads l
 JOIN programs p ON p.id = l.program_id
 ORDER BY l.created_at DESC;
 
-GRANT SELECT ON leads_admin_view TO anon, authenticated;
+GRANT SELECT ON leads_admin_view TO authenticated;

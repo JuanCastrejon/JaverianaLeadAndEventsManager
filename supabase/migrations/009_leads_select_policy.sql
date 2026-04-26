@@ -3,4 +3,6 @@
 
 -- Política: el lead insertado puede ser leído por quien lo insertó (anon key)
 CREATE POLICY "Leads can be read after insert" ON leads
-  FOR SELECT USING (true);
+  FOR SELECT
+  TO authenticated
+  USING (true);
