@@ -178,8 +178,77 @@ body {
 .swagger-shell .swagger-ui .examples,
 .swagger-shell .swagger-ui .highlight-code,
 .swagger-shell .swagger-ui .microlight {
-  background: var(--color-surface-alt);
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+/* Syntax highlighting for light mode - use dark code blocks */
+.swagger-shell .swagger-ui .microlight .string,
+.swagger-shell .swagger-ui .highlight-code .hljs-string {
+  color: #7dd3fc;
+}
+
+.swagger-shell .swagger-ui .microlight .number,
+.swagger-shell .swagger-ui .highlight-code .hljs-number {
+  color: #a5f3fc;
+}
+
+.swagger-shell .swagger-ui .microlight .boolean,
+.swagger-shell .swagger-ui .highlight-code .hljs-literal {
+  color: #fbbf24;
+}
+
+.swagger-shell .swagger-ui .microlight .null,
+.swagger-shell .swagger-ui .highlight-code .hljs-keyword {
+  color: #f472b6;
+}
+
+.swagger-shell .swagger-ui .microlight .key,
+.swagger-shell .swagger-ui .highlight-code .hljs-attr {
+  color: #c4b5fd;
+}
+
+/* Response links and controls text */
+.swagger-shell .swagger-ui .response-control-media-type__accept-message {
+  color: var(--color-javeriana-blue);
+}
+
+.swagger-shell .swagger-ui .response-control-media-type__accept-message code {
+  background: transparent;
+  color: var(--color-javeriana-blue);
+  font-weight: 600;
+}
+
+/* Select dropdowns in light mode */
+.swagger-shell .swagger-ui select {
+  background-color: #ffffff;
+  border: 1px solid var(--color-javeriana-blue);
   color: var(--color-text-primary);
+}
+
+.swagger-shell .swagger-ui select option {
+  background-color: #ffffff;
+  color: var(--color-text-primary);
+}
+
+/* Tab styling */
+.swagger-shell .swagger-ui .tab li {
+  color: var(--color-text-secondary);
+}
+
+.swagger-shell .swagger-ui .tab li.active {
+  color: var(--color-javeriana-blue);
+}
+
+/* Table headers */
+.swagger-shell .swagger-ui table thead tr th,
+.swagger-shell .swagger-ui table thead tr td {
+  color: var(--color-text-primary);
+  border-color: rgba(0, 51, 102, 0.15);
+}
+
+.swagger-shell .swagger-ui table tbody tr td {
+  color: var(--color-text-secondary);
 }
 
 .dark .swagger-shell {
@@ -264,8 +333,77 @@ body {
 .dark .swagger-shell .swagger-ui .examples,
 .dark .swagger-shell .swagger-ui .highlight-code,
 .dark .swagger-shell .swagger-ui .microlight {
-  background: rgba(15, 23, 42, 0.9);
+  background: rgba(15, 23, 42, 0.95);
+  color: #e2e8f0;
+}
+
+/* Syntax highlighting for dark mode */
+.dark .swagger-shell .swagger-ui .microlight .string,
+.dark .swagger-shell .swagger-ui .highlight-code .hljs-string {
+  color: #7dd3fc;
+}
+
+.dark .swagger-shell .swagger-ui .microlight .number,
+.dark .swagger-shell .swagger-ui .highlight-code .hljs-number {
+  color: #a5f3fc;
+}
+
+.dark .swagger-shell .swagger-ui .microlight .boolean,
+.dark .swagger-shell .swagger-ui .highlight-code .hljs-literal {
+  color: #fbbf24;
+}
+
+.dark .swagger-shell .swagger-ui .microlight .null,
+.dark .swagger-shell .swagger-ui .highlight-code .hljs-keyword {
+  color: #f472b6;
+}
+
+.dark .swagger-shell .swagger-ui .microlight .key,
+.dark .swagger-shell .swagger-ui .highlight-code .hljs-attr {
+  color: #c4b5fd;
+}
+
+/* Response links and controls text - dark mode */
+.dark .swagger-shell .swagger-ui .response-control-media-type__accept-message {
+  color: var(--color-javeriana-gold-light);
+}
+
+.dark .swagger-shell .swagger-ui .response-control-media-type__accept-message code {
+  background: transparent;
+  color: var(--color-javeriana-gold-light);
+  font-weight: 600;
+}
+
+/* Select dropdowns in dark mode */
+.dark .swagger-shell .swagger-ui select {
+  background-color: rgba(15, 23, 42, 0.95);
+  border: 1px solid var(--color-javeriana-gold);
   color: #f8fafc;
+}
+
+.dark .swagger-shell .swagger-ui select option {
+  background-color: #1a2332;
+  color: #f8fafc;
+}
+
+/* Tab styling - dark mode */
+.dark .swagger-shell .swagger-ui .tab li {
+  color: #9ca3af;
+}
+
+.dark .swagger-shell .swagger-ui .tab li.active {
+  color: var(--color-javeriana-gold-light);
+}
+
+/* Table headers - dark mode */
+.dark .swagger-shell .swagger-ui table thead tr th,
+.dark .swagger-shell .swagger-ui table thead tr td {
+  color: #e5e7eb;
+  border-color: rgba(200, 169, 97, 0.25);
+}
+
+.dark .swagger-shell .swagger-ui table tbody tr td {
+  color: #d1d5db;
 }
 
 .dark .swagger-shell .swagger-ui .info .title pre.version {
@@ -278,6 +416,118 @@ body {
   border-color: rgba(253, 184, 19, 0.42);
   background: rgba(253, 184, 19, 0.16);
   color: var(--color-javeriana-gold-bright);
+}
+
+/* Authorization modal - Dark mode */
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux {
+  background-color: var(--color-surface-dark);
+  border: 1px solid rgba(200, 169, 97, 0.3);
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-header {
+  background-color: var(--color-surface-dark-alt);
+  border-bottom: 1px solid rgba(200, 169, 97, 0.2);
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-header h3 {
+  color: #f8fafc;
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-header .close-modal {
+  filter: invert(1);
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content {
+  background-color: var(--color-surface-dark);
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content h4,
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content label,
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content p,
+.dark .swagger-shell .swagger-ui .auth-container h4,
+.dark .swagger-shell .swagger-ui .auth-container label,
+.dark .swagger-shell .swagger-ui .auth-container p,
+.dark .swagger-shell .swagger-ui .auth-container code {
+  color: #e5e7eb;
+}
+
+.dark .swagger-shell .swagger-ui .auth-container code {
+  background-color: rgba(200, 169, 97, 0.15);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content input[type="text"],
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content input[type="password"] {
+  background-color: var(--color-surface-dark-alt);
+  border: 1px solid rgba(200, 169, 97, 0.4);
+  color: #f8fafc;
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content input[type="text"]::placeholder,
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content input[type="password"]::placeholder {
+  color: #9ca3af;
+}
+
+/* Buttons in modal - Dark mode */
+.dark .swagger-shell .swagger-ui .btn.modal-btn {
+  border: 1px solid var(--color-javeriana-gold);
+  color: var(--color-javeriana-gold-light);
+  background-color: transparent;
+}
+
+.dark .swagger-shell .swagger-ui .btn.modal-btn:hover {
+  background-color: rgba(200, 169, 97, 0.15);
+}
+
+.dark .swagger-shell .swagger-ui .btn.modal-btn.auth.authorize {
+  background-color: var(--color-javeriana-gold);
+  color: var(--color-javeriana-blue-dark);
+  border-color: var(--color-javeriana-gold);
+}
+
+.dark .swagger-shell .swagger-ui .btn.modal-btn.auth.authorize:hover {
+  background-color: var(--color-javeriana-gold-bright);
+}
+
+/* Authorize button in main view - Dark mode */
+.dark .swagger-shell .swagger-ui .btn.authorize {
+  border-color: var(--color-javeriana-gold);
+  color: var(--color-javeriana-gold-light);
+}
+
+.dark .swagger-shell .swagger-ui .btn.authorize svg {
+  fill: var(--color-javeriana-gold-light);
+}
+
+.dark .swagger-shell .swagger-ui .btn.authorize:hover {
+  background-color: rgba(200, 169, 97, 0.15);
+}
+
+/* Try it out button - Dark mode */
+.dark .swagger-shell .swagger-ui .try-out__btn {
+  border-color: var(--color-javeriana-gold);
+  color: var(--color-javeriana-gold-light);
+}
+
+.dark .swagger-shell .swagger-ui .try-out__btn:hover {
+  background-color: rgba(200, 169, 97, 0.15);
+}
+
+/* Execute button - Dark mode */
+.dark .swagger-shell .swagger-ui .btn.execute {
+  background-color: var(--color-javeriana-gold);
+  color: var(--color-javeriana-blue-dark);
+  border-color: var(--color-javeriana-gold);
+}
+
+.dark .swagger-shell .swagger-ui .btn.execute:hover {
+  background-color: var(--color-javeriana-gold-bright);
+}
+
+/* Lock icon in operations */
+.dark .swagger-shell .swagger-ui .authorization__btn svg {
+  fill: var(--color-javeriana-gold-light);
 }
 
 /* Scrollbar styling */
