@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Calendar, MapPin, Users } from 'lucide-react';
 import type { EventItem } from '../../types';
 import { resolveEventUrl } from '../../utils/javerianaLinks';
 
@@ -52,11 +53,17 @@ export function EventCard({ event }: EventCardProps) {
 
         <div className="grid gap-2 sm:grid-cols-2">
           <div className="rounded-2xl border border-gray-100 bg-surface-alt/70 p-3 dark:border-gray-800 dark:bg-surface-dark">
-            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-javeriana-blue/70 dark:text-gray-400">Fecha</p>
+            <div className="flex items-center gap-2">
+              <Calendar className="h-4 w-4 shrink-0 text-javeriana-blue dark:text-javeriana-gold-light" aria-hidden="true" />
+              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-javeriana-blue/70 dark:text-gray-400">Fecha</p>
+            </div>
             <p className="mt-1 text-sm font-semibold text-javeriana-blue dark:text-gray-200">{formatEventDate(event.start_date)}</p>
           </div>
           <div className="rounded-2xl border border-gray-100 bg-surface-alt/70 p-3 dark:border-gray-800 dark:bg-surface-dark">
-            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-javeriana-blue/70 dark:text-gray-400">Lugar</p>
+            <div className="flex items-center gap-2">
+              <MapPin className="h-4 w-4 shrink-0 text-javeriana-blue dark:text-javeriana-gold-light" aria-hidden="true" />
+              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-javeriana-blue/70 dark:text-gray-400">Lugar</p>
+            </div>
             <p className="mt-1 line-clamp-2 text-sm font-semibold text-javeriana-blue dark:text-gray-200">
               {event.location ?? 'Por confirmar'}
             </p>
@@ -64,7 +71,8 @@ export function EventCard({ event }: EventCardProps) {
         </div>
 
         <div className="mt-auto flex flex-wrap gap-2 pt-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-text-secondary dark:text-gray-300">
-          <span className="rounded-full bg-javeriana-blue/5 px-3 py-1 dark:bg-white/5">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-javeriana-blue/5 px-3 py-1 dark:bg-white/5">
+            <Users className="h-3 w-3" aria-hidden="true" />
             {event.organizer ?? 'Javeriana'}
           </span>
           {hasRegistrationDeadline ? (

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Clock, Building2, Monitor } from 'lucide-react';
 import type { Program } from '../../types';
 import { getFacultyImagePath } from '../../utils/facultyImages';
 import { resolveProgramUrl } from '../../utils/javerianaLinks';
@@ -58,17 +59,20 @@ export function ProgramCard({ program }: ProgramCardProps) {
         <p className="line-clamp-3 text-sm text-text-secondary dark:text-gray-300">{program.description}</p>
 
         <dl className="mt-auto grid gap-2 pt-1 text-sm">
-          <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <Building2 className="h-4 w-4 shrink-0 text-javeriana-blue dark:text-javeriana-gold-light" aria-hidden="true" />
             <dt className="font-semibold text-javeriana-blue dark:text-gray-200">Facultad</dt>
             <dd className="max-w-44 truncate text-right text-text-secondary dark:text-gray-300" title={program.faculty}>
               {program.faculty}
             </dd>
           </div>
-          <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <Clock className="h-4 w-4 shrink-0 text-javeriana-blue dark:text-javeriana-gold-light" aria-hidden="true" />
             <dt className="font-semibold text-javeriana-blue dark:text-gray-200">Duración</dt>
             <dd className="text-text-secondary dark:text-gray-300">{program.duration}</dd>
           </div>
-          <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <Monitor className="h-4 w-4 shrink-0 text-javeriana-blue dark:text-javeriana-gold-light" aria-hidden="true" />
             <dt className="font-semibold text-javeriana-blue dark:text-gray-200">Modalidad</dt>
             <dd className="text-text-secondary dark:text-gray-300">{program.modality}</dd>
           </div>

@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { motion, type Variants } from 'framer-motion';
+import { BookOpen, Users, Award, Calendar } from 'lucide-react';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { useDebounce } from './hooks/useDebounce';
@@ -110,30 +111,42 @@ export function App() {
             <motion.div variants={HERO_ITEM_VARIANTS} className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
               <motion.div
                 whileHover={{ y: -3 }}
-                className="min-w-0 rounded-2xl bg-javeriana-blue p-3 text-white shadow-card sm:p-4"
+                className="min-w-0 rounded-2xl bg-javeriana-blue p-3 text-white shadow-card transition-all duration-300 hover:shadow-card-hover sm:p-4"
               >
-                <p className="truncate text-[10px] leading-tight uppercase tracking-[0.08em] text-white/80 sm:text-[11px]">Programas</p>
+                <div className="flex items-center gap-2">
+                  <BookOpen className="h-4 w-4 shrink-0 sm:h-5 sm:w-5" aria-hidden="true" />
+                  <p className="truncate text-[10px] leading-tight uppercase tracking-[0.08em] text-white/80 sm:text-[11px]">Programas</p>
+                </div>
                 <p className="mt-2 text-2xl font-bold sm:text-3xl">{allPrograms.length}</p>
               </motion.div>
               <motion.div
                 whileHover={{ y: -3 }}
-                className="min-w-0 rounded-2xl bg-javeriana-gold p-3 text-javeriana-blue shadow-card sm:p-4"
+                className="min-w-0 rounded-2xl bg-javeriana-gold p-3 text-javeriana-blue shadow-card transition-all duration-300 hover:shadow-card-hover sm:p-4"
               >
-                <p className="truncate text-[10px] leading-tight uppercase tracking-[0.08em] sm:text-[11px]">Facultades</p>
+                <div className="flex items-center gap-2">
+                  <Users className="h-4 w-4 shrink-0 sm:h-5 sm:w-5" aria-hidden="true" />
+                  <p className="truncate text-[10px] leading-tight uppercase tracking-[0.08em] sm:text-[11px]">Facultades</p>
+                </div>
                 <p className="mt-2 text-2xl font-bold sm:text-3xl">{facultiesCount}</p>
               </motion.div>
               <motion.div
                 whileHover={{ y: -3 }}
-                className="min-w-0 rounded-2xl bg-javeriana-gold-bright p-3 text-javeriana-blue shadow-card sm:p-4"
+                className="min-w-0 rounded-2xl bg-javeriana-gold-bright p-3 text-javeriana-blue shadow-card transition-all duration-300 hover:shadow-card-hover sm:p-4"
               >
-                <p className="truncate text-[10px] leading-tight uppercase tracking-[0.08em] sm:text-[11px]">Leads</p>
+                <div className="flex items-center gap-2">
+                  <Award className="h-4 w-4 shrink-0 sm:h-5 sm:w-5" aria-hidden="true" />
+                  <p className="truncate text-[10px] leading-tight uppercase tracking-[0.08em] sm:text-[11px]">Leads</p>
+                </div>
                 <p className="mt-2 text-2xl font-bold sm:text-3xl">{totalLeads}</p>
               </motion.div>
               <motion.div
                 whileHover={{ y: -3 }}
-                className="min-w-0 rounded-2xl border border-javeriana-gold/35 bg-white/70 p-3 text-javeriana-blue shadow-card backdrop-blur-sm dark:border-javeriana-gold/25 dark:bg-surface-dark-alt dark:text-javeriana-gold-light sm:p-4"
+                className="min-w-0 rounded-2xl border border-javeriana-gold/35 bg-white/70 p-3 text-javeriana-blue shadow-card transition-all duration-300 hover:shadow-card-hover backdrop-blur-sm dark:border-javeriana-gold/25 dark:bg-surface-dark-alt dark:text-javeriana-gold-light sm:p-4"
               >
-                <p className="truncate text-[10px] leading-tight uppercase tracking-[0.08em] sm:text-[11px]">Eventos</p>
+                <div className="flex items-center gap-2">
+                  <Calendar className="h-4 w-4 shrink-0 sm:h-5 sm:w-5" aria-hidden="true" />
+                  <p className="truncate text-[10px] leading-tight uppercase tracking-[0.08em] sm:text-[11px]">Eventos</p>
+                </div>
                 <p className="mt-2 text-2xl font-bold sm:text-3xl">{events.length}</p>
               </motion.div>
             </motion.div>

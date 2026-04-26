@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Lock, Globe, Mail, Heart, Zap, ExternalLink, Layers } from 'lucide-react';
 
 interface NavItem {
   id: string;
@@ -43,13 +44,13 @@ function MoonIcon() {
 
 export function Header({ navItems, isDark, onToggleTheme }: HeaderProps) {
   const quickLinks = [
-    { label: 'Intranet', href: 'https://intranet.javeriana.edu.co/inicio' },
-    { label: 'Campus Virtual', href: 'https://campusvirtual.javeriana.edu.co/' },
-    { label: 'Mi correo', href: 'https://mail.office365.com/javeriana.edu.co' },
-    { label: 'Donaciones', href: 'https://www.javeriana.edu.co/donaciones' },
-    { label: 'Apoyo financiero', href: 'https://www.javeriana.edu.co/estudia-en-la-javeriana/apoyo-financiero' },
-    { label: 'Servicios externos', href: 'https://www.javeriana.edu.co/servicios-en-linea' },
-    { label: 'Perfiles y Capacidades', href: 'https://www.javeriana.edu.co/biblos/perfiles' },
+    { label: 'Intranet', href: 'https://intranet.javeriana.edu.co/inicio', Icon: Lock },
+    { label: 'Campus Virtual', href: 'https://campusvirtual.javeriana.edu.co/', Icon: Globe },
+    { label: 'Mi correo', href: 'https://mail.office365.com/javeriana.edu.co', Icon: Mail },
+    { label: 'Donaciones', href: 'https://www.javeriana.edu.co/donaciones', Icon: Heart },
+    { label: 'Apoyo financiero', href: 'https://www.javeriana.edu.co/estudia-en-la-javeriana/apoyo-financiero', Icon: Zap },
+    { label: 'Servicios externos', href: 'https://www.javeriana.edu.co/servicios-en-linea', Icon: ExternalLink },
+    { label: 'Perfiles y Capacidades', href: 'https://www.javeriana.edu.co/biblos/perfiles', Icon: Layers },
   ] as const;
 
   return (
@@ -64,9 +65,10 @@ export function Header({ navItems, isDark, onToggleTheme }: HeaderProps) {
                 target="_blank"
                 rel="noreferrer"
                 whileHover={{ y: -1, opacity: 0.95 }}
-                className="transition-opacity hover:opacity-80"
+                className="inline-flex items-center gap-1.5 transition-opacity hover:opacity-80"
               >
-                {link.label}
+                <link.Icon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                <span className="hidden sm:inline">{link.label}</span>
               </motion.a>
             ))}
           </div>
