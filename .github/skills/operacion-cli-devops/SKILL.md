@@ -16,14 +16,47 @@ Skill para asegurar trazabilidad operativa y adopción controlada de skills exte
 
 No abrir PR final ni mergear a ramas de integración si existen checks fallidos en GitHub Actions.
 
+## Gate funcional en navegador (obligatorio)
+
+Antes de considerar una fase como completada:
+
+1. Validar flujo funcional en navegador local (`npm run dev`) sobre el alcance de la fase.
+2. Validar API remota (Supabase REST) para las rutas/datos usados en la fase.
+3. Validar preview remoto del frontend (PR/Preview en Vercel) cuando exista impacto visual o de integración.
+
+Si falla cualquiera de los puntos anteriores, la fase queda en estado parcial y no debe pasarse a ready.
+
+### Matriz mínima por fase
+
+- Fase 1 (Supabase): API remota y políticas RLS verificadas; UI puede ser parcial.
+- Fase 2 (Núcleo UI SPA): navegación SPA, filtros y responsive verificados en local; consumo de programas desde API remota verificado.
+- Fase 3 (Leads): flujo end-to-end de formulario en local + persistencia localStorage + inserción remota en Supabase.
+- Fases 4+ (plus/calidad/deploy): además de local, validar preview remoto antes de cierre.
+
 ## Flujo operativo recomendado
 
 1. Desarrollar en rama `feature/*`, `fix/*` o `docs/*`.
 2. Verificar cambios locales (`npx tsc --noEmit`, `npx vitest run`).
-3. Abrir PR draft para activar CI temprano.
-4. Revisar checks/runs y corregir antes de pasar a ready.
-5. Validar despliegue preview en Vercel (si aplica).
-6. Merge por PR con historial limpio.
+3. Ejecutar validación funcional en navegador según la fase (local + remoto si aplica).
+4. Abrir PR draft para activar CI temprano.
+5. Revisar checks/runs y corregir antes de pasar a ready.
+6. Validar despliegue preview en Vercel (si aplica).
+7. Merge por PR con historial limpio.
+
+## Convención de nombres de rama (obligatoria)
+
+- Nombrar ramas por acción/resultado técnico, no por número de fase.
+- Formato: `feature/<accion-kebab-case>`, `fix/<accion-kebab-case>`, `docs/<accion-kebab-case>`.
+- Evitar nombres como `feature/fase1-*`, `feature/fase2-*`, etc.
+
+Ejemplos recomendados:
+- `feature/supabase-productivo`
+- `feature/programas-filtro-avanzado`
+- `feature/leads-validacion-normalizacion`
+
+Ejemplos no recomendados:
+- `feature/fase1-supabase`
+- `feature/fase2-ui`
 
 ## Comandos base GitHub CLI
 

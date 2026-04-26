@@ -56,6 +56,12 @@ React SPA → localStorage → Leads (persistencia obligatoria)
 3. Formulario de leads con validación email y normalización
 4. Persistencia en localStorage
 
+## Validación operativa por fases
+
+- Fase 2 debe demostrar navegación SPA + filtros sin recarga + responsive en navegador local.
+- Para Fase 2, la API remota debe evidenciar carga real de programas (no mock).
+- Fase 3 añade el requisito visible de formulario operativo e integración local/remota de leads.
+
 ### Convenciones Clave
 - **Idioma**: Código en inglés, documentación/commits en español
 - **TypeScript**: strict, sin any, interfaces explícitas

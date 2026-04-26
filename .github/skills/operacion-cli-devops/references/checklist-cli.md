@@ -3,9 +3,17 @@
 ## Antes de abrir PR
 
 - [ ] Rama correcta (`feature/*`, `fix/*`, `docs/*`)
+- [ ] Rama nombrada por accion (no por fase), por ejemplo: `feature/supabase-productivo`
 - [ ] `git status` limpio de archivos no intencionales
 - [ ] Pruebas minimas del alcance ejecutadas
 - [ ] Sin secretos ni archivos locales en staging
+
+## Validacion funcional por fase (obligatoria)
+
+- [ ] Fase actual validada en navegador local (`npm run dev`) contra su DoD visual/funcional
+- [ ] API remota validada para el alcance de la fase (Supabase REST)
+- [ ] Responsive validado en 375px, 768px y 1280px (si aplica a UI)
+- [ ] Preview remoto validado en PR (si hay cambios de UI o integracion)
 
 ## PR Draft
 

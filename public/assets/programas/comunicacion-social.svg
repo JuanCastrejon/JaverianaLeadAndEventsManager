@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="title desc">
+  <title id="title">Comunicacion Social</title>
+  <desc id="desc">Ilustracion abstracta para el programa de Comunicacion Social</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#dc2626" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="520" fill="url(#bg)"/>
+  <circle cx="180" cy="140" r="80" fill="#FDB813" opacity="0.9"/>
+  <circle cx="320" cy="220" r="95" fill="#ffffff" opacity="0.3"/>
+  <circle cx="500" cy="170" r="110" fill="#C8A961" opacity="0.55"/>
+  <path d="M120 360 C250 290, 350 430, 470 340 S650 260, 740 350" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round" opacity="0.8"/>
+  <text x="80" y="450" fill="#ffffff" font-family="Arial, sans-serif" font-size="32" font-weight="700">Comunicacion Social</text>
+</svg>
