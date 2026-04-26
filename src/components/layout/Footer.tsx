@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Globe, Github, Linkedin } from 'lucide-react';
+import { Mail, Phone, MapPin, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export function Footer() {
@@ -31,7 +31,6 @@ export function Footer() {
   ];
 
   const socialLinks = [
-    { icon: Linkedin, href: 'https://www.linkedin.com/school/pontificia-universidad-javeriana/', label: 'LinkedIn' },
     { icon: Globe, href: 'https://www.javeriana.edu.co/', label: 'Web' },
   ];
 
