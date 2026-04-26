@@ -231,6 +231,68 @@ body {
   color: var(--color-text-primary);
 }
 
+/* Authorization modal - Light mode */
+.swagger-shell .swagger-ui .dialog-ux .modal-ux {
+  background-color: var(--color-surface);
+  border: 1px solid rgba(0, 51, 102, 0.16);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+}
+
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-header {
+  background-color: var(--color-surface-alt);
+  border-bottom: 1px solid rgba(0, 51, 102, 0.12);
+}
+
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-header h3 {
+  color: var(--color-javeriana-blue);
+}
+
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-header .close-modal {
+  filter: none;
+}
+
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-content {
+  background-color: var(--color-surface);
+}
+
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-content h4,
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-content label,
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-content p,
+.swagger-shell .swagger-ui .auth-container h4,
+.swagger-shell .swagger-ui .auth-container label,
+.swagger-shell .swagger-ui .auth-container p,
+.swagger-shell .swagger-ui .auth-container code {
+  color: var(--color-text-primary);
+}
+
+.swagger-shell .swagger-ui .auth-container code {
+  background-color: rgba(0, 51, 102, 0.08);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+}
+
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-content input[type="text"],
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-content input[type="password"] {
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 51, 102, 0.18);
+  color: var(--color-text-primary);
+}
+
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-content input[type="text"]::placeholder,
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-content input[type="password"]::placeholder {
+  color: #6b7280;
+}
+
+.swagger-shell .swagger-ui .btn.modal-btn {
+  border: 1px solid rgba(0, 51, 102, 0.18);
+  color: var(--color-javeriana-blue);
+  background-color: #ffffff;
+}
+
+.swagger-shell .swagger-ui .btn.modal-btn:hover {
+  background-color: var(--color-surface-alt);
+}
+
 /* Tab styling */
 .swagger-shell .swagger-ui .tab li {
   color: var(--color-text-secondary);
@@ -315,6 +377,65 @@ body {
 .dark .swagger-shell .swagger-ui table th,
 .dark .swagger-shell .swagger-ui table td {
   border-color: rgba(200, 169, 97, 0.22);
+}
+
+.dark .swagger-shell .swagger-ui .opblock .opblock-summary-method {
+  color: #0f1729;
+  font-weight: 700;
+}
+
+.dark .swagger-shell .swagger-ui .opblock .opblock-summary-path,
+.dark .swagger-shell .swagger-ui .opblock .opblock-summary-description {
+  color: #f8fafc;
+}
+
+.dark .swagger-shell .swagger-ui .opblock .opblock-summary-path {
+  color: var(--color-javeriana-gold-light);
+  font-weight: 700;
+  opacity: 1;
+}
+
+.dark .swagger-shell .swagger-ui .opblock .opblock-summary-description {
+  color: #e5e7eb;
+}
+
+.dark .swagger-shell .swagger-ui .opblock.opblock-get .opblock-summary-path,
+.dark .swagger-shell .swagger-ui .opblock.opblock-post .opblock-summary-path,
+.dark .swagger-shell .swagger-ui .opblock.opblock-put .opblock-summary-path,
+.dark .swagger-shell .swagger-ui .opblock.opblock-delete .opblock-summary-path,
+.dark .swagger-shell .swagger-ui .opblock.opblock-patch .opblock-summary-path {
+  text-shadow: 0 0 1px rgba(15, 23, 42, 0.5);
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux {
+  background-color: var(--color-surface-dark);
+  border: 1px solid rgba(200, 169, 97, 0.3);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-header {
+  background-color: var(--color-surface-dark-alt);
+  border-bottom: 1px solid rgba(200, 169, 97, 0.2);
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content {
+  background-color: var(--color-surface-dark);
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .auth-container {
+  color: #e5e7eb;
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .auth-container .auth-btn-wrapper {
+  border-top: 1px solid rgba(200, 169, 97, 0.16);
+  padding-top: 1rem;
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content input[type="text"],
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content input[type="password"] {
+  background-color: var(--color-surface-dark-alt);
+  border: 1px solid rgba(200, 169, 97, 0.4);
+  color: #f8fafc;
 }
 
 .dark .swagger-shell .swagger-ui .btn,

@@ -11,21 +11,30 @@ const sectionVariants: Variants = {
 };
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
-const supabasePublishableKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined;
-
-const clientApiKey = supabasePublishableKey?.trim() || supabaseAnonKey?.trim() || '';
-const hasSwaggerSource = Boolean(supabaseUrl?.trim() && clientApiKey);
+const hasSwaggerSource = Boolean(supabaseUrl?.trim());
 
 interface SwaggerRequestLike {
-  headers?: Record<string, string>;
+  headers?: Record<string, string | number | boolean | null | undefined>;
 }
 
-function createRequestInterceptor(apiKey: string) {
+/**
+ * Normaliza las cabeceras que Swagger envía cuando el usuario autoriza manualmente.
+ * No precarga valores desde `.env`; la API Key debe ingresarse de forma explícita en Authorize.
+ */
+function createRequestInterceptor() {
   return (request: SwaggerRequestLike) => {
+    const headers = request.headers ?? {};
+    const headerApiKey =
+      typeof headers.apikey === 'string' ? headers.apikey.trim() : '';
+
     request.headers = {
-      ...(request.headers ?? {}),
-      apikey: apiKey,
+      ...headers,
+      ...(headerApiKey
+        ? {
+            apikey: headerApiKey,
+            Authorization: `Bearer ${headerApiKey}`,
+          }
+        : {}),
       Accept: 'application/json',
     };
 
@@ -34,7 +43,9 @@ function createRequestInterceptor(apiKey: string) {
 }
 
 export function ApiDocsSection() {
-  const swaggerSpec = hasSwaggerSource ? buildApiDocsSpec(supabaseUrl as string) : null;
+  const swaggerSpec = hasSwaggerSource
+    ? buildApiDocsSpec(supabaseUrl as string)
+    : null;
 
   return (
     <motion.section
@@ -47,49 +58,36 @@ export function ApiDocsSection() {
     >
       <SectionTitle
         title="Documentación API"
-        subtitle="Referencia interactiva de los endpoints REST expuestos por Supabase para validar contratos, payloads y respuestas esperadas del frontend. Prioriza una respuesta exitosa por endpoint y responses reutilizables para los errores compartidos."
+        subtitle="Referencia interactiva de los endpoints REST expuestos por Supabase para validar contratos, payloads y respuestas esperadas del frontend."
       />
 
+      {/* 🧠 Info + UX */}
       <div className="mb-6 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
         <div className="rounded-card border border-javeriana-gold/25 bg-linear-to-br from-javeriana-gold/10 to-white px-5 py-4 text-text-secondary shadow-card dark:border-javeriana-gold/25 dark:from-javeriana-gold/10 dark:to-surface-dark-alt dark:text-gray-200">
-          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-text-secondary dark:text-javeriana-gold-light/80">
+          <p className="text-[11px] font-bold uppercase tracking-[0.22em]">
             Recomendación editorial
           </p>
-          <p className="mt-2 text-sm leading-6 text-text-secondary dark:text-gray-200">
-            Documenta una respuesta exitosa por endpoint y reutiliza responses comunes para los errores compartidos.
-            Así mantienes la spec limpia, fácil de leer y rápida de revisar.
+          <p className="mt-2 text-sm leading-6">
+            Documenta una respuesta exitosa por endpoint y reutiliza responses comunes para errores.
           </p>
-          <div className="mt-3 flex flex-wrap gap-2 text-[11px] font-semibold uppercase tracking-[0.12em]">
-            <span className="rounded-full bg-javeriana-blue/5 px-3 py-1 text-text-primary dark:bg-white/5 dark:text-gray-200">
-              200 / 201
-            </span>
-            <span className="rounded-full bg-javeriana-gold/20 px-3 py-1 text-text-primary dark:bg-javeriana-gold/15 dark:text-javeriana-gold-light">
-              400 / 401 / 403 / 500
-            </span>
-            <span className="rounded-full border border-javeriana-gold/20 px-3 py-1 text-text-primary dark:border-javeriana-gold/20 dark:text-gray-200">
-              Reutilizable
-            </span>
-          </div>
         </div>
 
-        <div className="rounded-card border border-slate-200 bg-slate-50 px-5 py-4 text-sm text-text-secondary shadow-card dark:border-slate-700 dark:bg-surface-dark-alt dark:text-gray-300">
-          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-text-secondary dark:text-gray-400">
+        <div className="rounded-card border border-slate-200 bg-slate-50 px-5 py-4 text-sm shadow-card dark:border-slate-700 dark:bg-surface-dark-alt">
+          <p className="text-[11px] font-bold uppercase tracking-[0.22em]">
             Autorización
           </p>
-          <p className="mt-2 leading-6">
-            Solo se expone <span className="font-semibold text-javeriana-blue dark:text-javeriana-gold-light">apikey</span>{' '}
-            en Swagger. El header <span className="font-semibold">Bearer</span> se omite para simplificar la revisión y
-            centrar la demo en el consumo real del frontend.
+          <p className="mt-2">
+            Antes de ejecutar endpoints, usa <strong>Authorize</strong> e ingresa la{' '}
+            <span className="font-semibold">apikey</span>.
           </p>
         </div>
       </div>
 
       {swaggerSpec ? (
         <div className="swagger-shell overflow-hidden rounded-card border border-javeriana-blue/10 bg-white p-4 shadow-card dark:border-javeriana-gold/20 dark:bg-surface-dark-alt md:p-6">
-          <div className="mb-4 rounded-input border border-javeriana-gold/35 bg-javeriana-gold/10 px-3 py-2 text-xs text-text-primary dark:border-javeriana-gold/30 dark:bg-javeriana-gold/10 dark:text-javeriana-gold-light">
-            Las solicitudes de Swagger usan la clave cliente (publishable/anon) definida en variables de entorno. La
-            autenticación se mantiene intencionalmente simple para que el reviewer pueda validar la API sin pasos
-            extra.
+          
+          <div className="mb-4 rounded-input border border-javeriana-gold/35 bg-javeriana-gold/10 px-3 py-2 text-xs">
+            🔐 Swagger no precarga la API Key desde <code>.env</code>. Ingresa tu clave manualmente en <strong>Authorize</strong> para ejecutar consultas.
           </div>
 
           <SwaggerUI
@@ -97,15 +95,15 @@ export function ApiDocsSection() {
             docExpansion="list"
             defaultModelsExpandDepth={-1}
             displayRequestDuration
-            requestInterceptor={createRequestInterceptor(clientApiKey)}
+            persistAuthorization={false}
+            requestInterceptor={createRequestInterceptor()}
           />
         </div>
       ) : (
-        <div className="rounded-card border border-amber-300/80 bg-amber-50 p-6 text-amber-900 dark:border-amber-700/70 dark:bg-amber-950/30 dark:text-amber-200">
+        <div className="rounded-card border border-amber-300 bg-amber-50 p-6 text-amber-900">
           <p className="font-semibold">No se pudo inicializar Swagger UI.</p>
           <p className="mt-2 text-sm">
-            Configura VITE_SUPABASE_URL y una clave cliente (VITE_SUPABASE_PUBLISHABLE_KEY o VITE_SUPABASE_ANON_KEY)
-            en tu archivo .env para habilitar la documentación interactiva de la API.
+            Configura VITE_SUPABASE_URL en tu archivo .env.
           </p>
         </div>
       )}
