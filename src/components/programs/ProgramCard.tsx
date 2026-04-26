@@ -1,5 +1,7 @@
+import { motion } from 'framer-motion';
 import type { Program } from '../../types';
 import { getFacultyImagePath } from '../../utils/facultyImages';
+import { resolveProgramUrl } from '../../utils/javerianaLinks';
 import { getProgramImagePath } from '../../utils/programImages';
 
 interface ProgramCardProps {
@@ -18,9 +20,18 @@ function categoryBadgeClasses(category: Program['category']) {
 
 export function ProgramCard({ program }: ProgramCardProps) {
   const imageUrl = program.image_url || getProgramImagePath(program.name) || getFacultyImagePath(program.faculty);
+  const programUrl = resolveProgramUrl(program.name);
 
   return (
-    <article className="group overflow-hidden rounded-card border border-gray-100 bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover dark:border-gray-800 dark:bg-surface-dark-alt">
+    <motion.a
+      href={programUrl}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={`Ver programa ${program.name}`}
+      whileHover={{ y: -6 }}
+      transition={{ type: 'spring', stiffness: 260, damping: 22 }}
+      className="group block h-full overflow-hidden rounded-card border border-gray-100 bg-white shadow-card transition-all duration-300 hover:shadow-card-hover dark:border-gray-800 dark:bg-surface-dark-alt"
+    >
       <div className="relative h-48 overflow-hidden">
         <img
           src={imageUrl}
@@ -31,7 +42,7 @@ export function ProgramCard({ program }: ProgramCardProps) {
             event.currentTarget.src = getProgramImagePath(program.name) || getFacultyImagePath(program.faculty);
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-javeriana-blue/70 via-javeriana-blue/30 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-javeriana-blue/70 via-javeriana-blue/30 to-transparent" />
         <span
           className={`absolute left-3 top-3 rounded-full px-3 py-1 text-xs font-bold ${categoryBadgeClasses(program.category)}`}
         >
@@ -39,17 +50,19 @@ export function ProgramCard({ program }: ProgramCardProps) {
         </span>
       </div>
 
-      <div className="space-y-3 p-5">
-        <h3 className="line-clamp-2 font-[family-name:var(--font-family-display)] text-xl font-bold text-javeriana-blue dark:text-javeriana-gold-light">
+      <div className="flex h-[calc(100%-12rem)] flex-col space-y-3 p-5">
+        <h3 className="line-clamp-2 font-family-display text-xl font-bold text-javeriana-blue dark:text-javeriana-gold-light">
           {program.name}
         </h3>
 
         <p className="line-clamp-3 text-sm text-text-secondary dark:text-gray-300">{program.description}</p>
 
-        <dl className="grid gap-2 text-sm">
+        <dl className="mt-auto grid gap-2 pt-1 text-sm">
           <div className="flex items-center justify-between gap-2">
             <dt className="font-semibold text-javeriana-blue dark:text-gray-200">Facultad</dt>
-            <dd className="text-right text-text-secondary dark:text-gray-300">{program.faculty}</dd>
+            <dd className="max-w-44 truncate text-right text-text-secondary dark:text-gray-300" title={program.faculty}>
+              {program.faculty}
+            </dd>
           </div>
           <div className="flex items-center justify-between gap-2">
             <dt className="font-semibold text-javeriana-blue dark:text-gray-200">Duración</dt>
@@ -61,6 +74,6 @@ export function ProgramCard({ program }: ProgramCardProps) {
           </div>
         </dl>
       </div>
-    </article>
+    </motion.a>
   );
 }

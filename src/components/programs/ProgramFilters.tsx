@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import { PROGRAM_CATEGORIES, type ProgramCategory } from '../../types';
 
 interface ProgramFiltersProps {
@@ -18,7 +19,14 @@ export function ProgramFilters({
   onCategoryChange,
 }: ProgramFiltersProps) {
   return (
-    <div className="mb-8 rounded-card border border-gray-100 bg-white p-5 shadow-card dark:border-gray-800 dark:bg-surface-dark-alt">
+    <motion.div
+      className="mb-8 rounded-card border border-gray-100 bg-white p-5 shadow-card dark:border-gray-800 dark:bg-surface-dark-alt"
+      initial={{ opacity: 0, y: 14 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.35 }}
+      transition={{ duration: 0.45, ease: 'easeOut' }}
+      layout
+    >
       <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
         <label className="block">
           <span className="mb-2 block text-sm font-semibold text-javeriana-blue dark:text-gray-200">
@@ -34,17 +42,31 @@ export function ProgramFilters({
           />
         </label>
 
-        <p className="rounded-full bg-javeriana-blue/5 px-4 py-2 text-sm font-semibold text-javeriana-blue dark:bg-javeriana-gold/10 dark:text-javeriana-gold-light">
-          {resultCount} resultados
-        </p>
+        <div>
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={resultCount}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.2 }}
+              className="rounded-full bg-javeriana-blue/5 px-4 py-2 text-sm font-semibold text-javeriana-blue dark:bg-javeriana-gold/10 dark:text-javeriana-gold-light"
+            >
+              {resultCount} resultados
+            </motion.p>
+          </AnimatePresence>
+        </div>
       </div>
 
-      <div className="mt-4 flex flex-wrap gap-2">
-        <button
+      <motion.div layout className="mt-4 flex flex-wrap gap-2">
+        <motion.button
           type="button"
           onClick={() => {
             onCategoryChange('');
           }}
+          whileHover={{ y: -1 }}
+          whileTap={{ scale: 0.98 }}
+          layout
           className={`rounded-full px-4 py-2 text-xs font-bold transition-colors ${
             selectedCategory === ''
               ? 'bg-javeriana-blue text-white'
@@ -52,15 +74,18 @@ export function ProgramFilters({
           }`}
         >
           Todos
-        </button>
+        </motion.button>
 
         {PROGRAM_CATEGORIES.map((category) => (
-          <button
+          <motion.button
             key={category}
             type="button"
             onClick={() => {
               onCategoryChange(category);
             }}
+            whileHover={{ y: -1 }}
+            whileTap={{ scale: 0.98 }}
+            layout
             className={`rounded-full px-4 py-2 text-xs font-bold transition-colors ${
               selectedCategory === category
                 ? 'bg-javeriana-gold text-javeriana-blue'
@@ -68,9 +93,9 @@ export function ProgramFilters({
             }`}
           >
             {category} ({categoryCount[category] ?? 0})
-          </button>
+          </motion.button>
         ))}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

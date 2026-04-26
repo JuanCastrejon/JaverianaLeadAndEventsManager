@@ -100,10 +100,14 @@ export function LeadForm() {
   const hasError = (field: string) => touched[field] && errors[field];
 
   return (
-    <form
+    <motion.form
       id="lead-form"
       onSubmit={handleSubmit}
       noValidate
+      initial={{ opacity: 0, x: 22 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, amount: 0.35 }}
+      transition={{ duration: 0.45, ease: 'easeOut' }}
       className="mx-auto max-w-2xl space-y-6"
     >
       {/* Alerta de éxito */}
@@ -281,6 +285,6 @@ export function LeadForm() {
       <p className="text-center text-xs text-text-secondary dark:text-gray-400">
         Al registrarte aceptas que tus datos sean procesados para fines académicos informativos.
       </p>
-    </form>
+    </motion.form>
   );
 }

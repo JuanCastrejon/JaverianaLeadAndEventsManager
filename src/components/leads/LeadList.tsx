@@ -74,7 +74,7 @@ export function LeadList({ leads, programs, onDelete }: LeadListProps) {
                     {lead.phone || '—'}
                   </td>
                   <td className="px-4 py-3">
-                    <span className="inline-block max-w-[180px] truncate rounded-full bg-javeriana-blue/8 px-2.5 py-0.5 text-xs font-medium text-javeriana-blue dark:bg-javeriana-gold/15 dark:text-javeriana-gold-light">
+                    <span className="inline-block max-w-45 truncate rounded-full bg-javeriana-blue/8 px-2.5 py-0.5 text-xs font-medium text-javeriana-blue dark:bg-javeriana-gold/15 dark:text-javeriana-gold-light">
                       {programMap.get(lead.program_id) ?? lead.program_id}
                     </span>
                   </td>

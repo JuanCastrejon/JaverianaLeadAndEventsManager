@@ -1,4 +1,5 @@
 import type { Program } from './program';
+import type { EventItem } from './event';
 import type { Lead } from './lead';
 
 /* ── Program State ── */
@@ -18,6 +19,18 @@ export type ProgramAction =
   | { type: 'SET_LOADING'; payload: boolean }
   | { type: 'SET_ERROR'; payload: string | null }
   | { type: 'APPLY_FILTERS' };
+
+/* ── Event State ── */
+export interface EventState {
+  events: EventItem[];
+  loading: boolean;
+  error: string | null;
+}
+
+export type EventAction =
+  | { type: 'SET_EVENTS'; payload: EventItem[] }
+  | { type: 'SET_LOADING'; payload: boolean }
+  | { type: 'SET_ERROR'; payload: string | null };
 
 /* ── Lead State ── */
 export interface LeadState {
