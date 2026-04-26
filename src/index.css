@@ -51,6 +51,233 @@ body {
   background-color: var(--color-surface);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.dark body {
+  color: var(--color-text-light);
+  background-color: var(--color-surface-dark);
+}
+
+/* Swagger UI theming */
+.swagger-shell {
+  color: var(--color-text-primary);
+  color-scheme: light;
+}
+
+.swagger-shell .swagger-ui {
+  font-family: var(--font-family-body);
+  background: transparent;
+  color: inherit;
+}
+
+.swagger-shell .swagger-ui .topbar {
+  display: none;
+}
+
+.swagger-shell .swagger-ui .info .title {
+  color: var(--color-javeriana-blue);
+  font-family: var(--font-family-display);
+}
+
+.swagger-shell .swagger-ui .info .title > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-left: 0.65rem;
+  vertical-align: middle;
+}
+
+.swagger-shell .swagger-ui .info .title small {
+  display: inline-flex;
+  align-items: center;
+}
+
+.swagger-shell .swagger-ui .info .title .version-stamp {
+  background: transparent;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.swagger-shell .swagger-ui .info .title pre.version {
+  margin: 0;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid rgba(0, 51, 102, 0.24);
+  border-radius: 999px;
+  background: rgba(0, 51, 102, 0.08);
+  color: var(--color-javeriana-blue);
+  font-family: var(--font-family-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.swagger-shell .swagger-ui .info .title .version-stamp pre.version {
+  border-color: rgba(200, 169, 97, 0.42);
+  background: rgba(200, 169, 97, 0.22);
+  color: var(--color-javeriana-blue-dark);
+}
+
+.swagger-shell .swagger-ui .info .description,
+.swagger-shell .swagger-ui .info p,
+.swagger-shell .swagger-ui .renderedMarkdown,
+.swagger-shell .swagger-ui .renderedMarkdown p,
+.swagger-shell .swagger-ui .renderedMarkdown li,
+.swagger-shell .swagger-ui .renderedMarkdown td,
+.swagger-shell .swagger-ui .opblock-tag,
+.swagger-shell .swagger-ui .opblock-summary-description,
+.swagger-shell .swagger-ui .opblock-description-wrapper,
+.swagger-shell .swagger-ui .parameter__name,
+.swagger-shell .swagger-ui .parameter__type,
+.swagger-shell .swagger-ui .parameter__in,
+.swagger-shell .swagger-ui .response-col_status,
+.swagger-shell .swagger-ui .response-col_links,
+.swagger-shell .swagger-ui .response-col_description,
+.swagger-shell .swagger-ui .model-title,
+.swagger-shell .swagger-ui .tab li,
+.swagger-shell .swagger-ui label,
+.swagger-shell .swagger-ui .parameter__empty,
+.swagger-shell .swagger-ui .opblock .opblock-section-header h4,
+.swagger-shell .swagger-ui .responses-inner h4,
+.swagger-shell .swagger-ui .responses-inner h5 {
+  color: var(--color-text-secondary);
+}
+
+.swagger-shell .swagger-ui .opblock,
+.swagger-shell .swagger-ui .opblock-tag,
+.swagger-shell .swagger-ui .opblock .opblock-summary,
+.swagger-shell .swagger-ui .opblock .opblock-section-header,
+.swagger-shell .swagger-ui .opblock .opblock-body,
+.swagger-shell .swagger-ui .scheme-container,
+.swagger-shell .swagger-ui .model-box,
+.swagger-shell .swagger-ui .responses-table,
+.swagger-shell .swagger-ui .parameters,
+.swagger-shell .swagger-ui .auth-wrapper,
+.swagger-shell .swagger-ui .download-contents {
+  background: transparent;
+  border-color: rgba(0, 51, 102, 0.12);
+}
+
+.swagger-shell .swagger-ui .btn,
+.swagger-shell .swagger-ui .btn.authorize,
+.swagger-shell .swagger-ui select,
+.swagger-shell .swagger-ui input[type='text'],
+.swagger-shell .swagger-ui textarea {
+  border-color: rgba(0, 51, 102, 0.18);
+  color: var(--color-text-primary);
+}
+
+.swagger-shell .swagger-ui code,
+.swagger-shell .swagger-ui pre:not(.version),
+.swagger-shell .swagger-ui .example,
+.swagger-shell .swagger-ui .examples,
+.swagger-shell .swagger-ui .highlight-code,
+.swagger-shell .swagger-ui .microlight {
+  background: var(--color-surface-alt);
+  color: var(--color-text-primary);
+}
+
+.dark .swagger-shell {
+  color: var(--color-text-light);
+  color-scheme: dark;
+}
+
+.dark .swagger-shell .swagger-ui,
+.dark .swagger-shell .swagger-ui .scheme-container,
+.dark .swagger-shell .swagger-ui .opblock-tag,
+.dark .swagger-shell .swagger-ui .opblock .opblock-summary,
+.dark .swagger-shell .swagger-ui .opblock .opblock-section-header,
+.dark .swagger-shell .swagger-ui .opblock .opblock-body,
+.dark .swagger-shell .swagger-ui .model-box,
+.dark .swagger-shell .swagger-ui .responses-table,
+.dark .swagger-shell .swagger-ui .parameters,
+.dark .swagger-shell .swagger-ui .auth-wrapper,
+.dark .swagger-shell .swagger-ui .download-contents {
+  background-color: transparent;
+  color: #e5e7eb;
+}
+
+.dark .swagger-shell .swagger-ui .info .title,
+.dark .swagger-shell .swagger-ui .info .description,
+.dark .swagger-shell .swagger-ui .info p,
+.dark .swagger-shell .swagger-ui .renderedMarkdown,
+.dark .swagger-shell .swagger-ui .renderedMarkdown p,
+.dark .swagger-shell .swagger-ui .renderedMarkdown li,
+.dark .swagger-shell .swagger-ui .renderedMarkdown td,
+.dark .swagger-shell .swagger-ui .opblock-tag,
+.dark .swagger-shell .swagger-ui .opblock-summary-description,
+.dark .swagger-shell .swagger-ui .opblock-description-wrapper,
+.dark .swagger-shell .swagger-ui .parameter__name,
+.dark .swagger-shell .swagger-ui .parameter__type,
+.dark .swagger-shell .swagger-ui .parameter__in,
+.dark .swagger-shell .swagger-ui .response-col_status,
+.dark .swagger-shell .swagger-ui .response-col_links,
+.dark .swagger-shell .swagger-ui .response-col_description,
+.dark .swagger-shell .swagger-ui .model-title,
+.dark .swagger-shell .swagger-ui .tab li,
+.dark .swagger-shell .swagger-ui label,
+.dark .swagger-shell .swagger-ui .parameter__empty,
+.dark .swagger-shell .swagger-ui .opblock .opblock-section-header h4,
+.dark .swagger-shell .swagger-ui .responses-inner h4,
+.dark .swagger-shell .swagger-ui .responses-inner h5 {
+  color: #e5e7eb;
+}
+
+.dark .swagger-shell .swagger-ui .opblock,
+.dark .swagger-shell .swagger-ui .opblock-tag,
+.dark .swagger-shell .swagger-ui .opblock .opblock-summary,
+.dark .swagger-shell .swagger-ui .opblock .opblock-section-header,
+.dark .swagger-shell .swagger-ui .opblock .opblock-body,
+.dark .swagger-shell .swagger-ui .scheme-container,
+.dark .swagger-shell .swagger-ui .model-box,
+.dark .swagger-shell .swagger-ui .responses-table,
+.dark .swagger-shell .swagger-ui .parameters,
+.dark .swagger-shell .swagger-ui .auth-wrapper,
+.dark .swagger-shell .swagger-ui .download-contents,
+.dark .swagger-shell .swagger-ui table,
+.dark .swagger-shell .swagger-ui table tbody,
+.dark .swagger-shell .swagger-ui table thead,
+.dark .swagger-shell .swagger-ui table tr,
+.dark .swagger-shell .swagger-ui table th,
+.dark .swagger-shell .swagger-ui table td {
+  border-color: rgba(200, 169, 97, 0.22);
+}
+
+.dark .swagger-shell .swagger-ui .btn,
+.dark .swagger-shell .swagger-ui .btn.authorize,
+.dark .swagger-shell .swagger-ui select,
+.dark .swagger-shell .swagger-ui input[type='text'],
+.dark .swagger-shell .swagger-ui textarea {
+  background-color: rgba(15, 23, 42, 0.92);
+  border-color: rgba(200, 169, 97, 0.28);
+  color: #f8fafc;
+}
+
+.dark .swagger-shell .swagger-ui code,
+.dark .swagger-shell .swagger-ui pre:not(.version),
+.dark .swagger-shell .swagger-ui .example,
+.dark .swagger-shell .swagger-ui .examples,
+.dark .swagger-shell .swagger-ui .highlight-code,
+.dark .swagger-shell .swagger-ui .microlight {
+  background: rgba(15, 23, 42, 0.9);
+  color: #f8fafc;
+}
+
+.dark .swagger-shell .swagger-ui .info .title pre.version {
+  border-color: rgba(200, 169, 97, 0.34);
+  background: rgba(15, 23, 42, 0.72);
+  color: #f8fafc;
+}
+
+.dark .swagger-shell .swagger-ui .info .title .version-stamp pre.version {
+  border-color: rgba(253, 184, 19, 0.42);
+  background: rgba(253, 184, 19, 0.16);
+  color: var(--color-javeriana-gold-bright);
 }
 
 /* Scrollbar styling */
@@ -76,47 +303,4 @@ body {
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
-}
-
-/* Swagger UI theming */
-.swagger-shell .swagger-ui {
-  font-family: var(--font-family-body);
-}
-
-.swagger-shell .swagger-ui .topbar {
-  display: none;
-}
-
-.swagger-shell .swagger-ui .info .title {
-  color: var(--color-javeriana-blue);
-  font-family: var(--font-family-display);
-}
-
-.dark .swagger-shell .swagger-ui,
-.dark .swagger-shell .swagger-ui .scheme-container,
-.dark .swagger-shell .swagger-ui .opblock-tag,
-.dark .swagger-shell .swagger-ui .opblock .opblock-summary {
-  background-color: transparent;
-  color: #e5e7eb;
-}
-
-.dark .swagger-shell .swagger-ui .opblock-tag,
-.dark .swagger-shell .swagger-ui .parameter__name,
-.dark .swagger-shell .swagger-ui .responses-inner h4,
-.dark .swagger-shell .swagger-ui .responses-inner h5,
-.dark .swagger-shell .swagger-ui .response-col_status,
-.dark .swagger-shell .swagger-ui .response-col_links,
-.dark .swagger-shell .swagger-ui .tab li,
-.dark .swagger-shell .swagger-ui .model-title,
-.dark .swagger-shell .swagger-ui .renderedMarkdown p,
-.dark .swagger-shell .swagger-ui .info p,
-.dark .swagger-shell .swagger-ui .info li,
-.dark .swagger-shell .swagger-ui label {
-  color: #e5e7eb;
-}
-
-.dark .swagger-shell .swagger-ui .opblock-tag,
-.dark .swagger-shell .swagger-ui .opblock,
-.dark .swagger-shell .swagger-ui .scheme-container {
-  border-color: rgba(200, 169, 97, 0.25);
 }

@@ -20,5 +20,8 @@ test.describe('@smoke navegación principal', () => {
 
     await page.getByRole('link', { name: 'API Docs' }).click();
     await expect(page.getByRole('heading', { name: 'Documentación API' })).toBeVisible();
+    await expect(page.locator('.swagger-ui')).toBeVisible();
+    await expect(page.getByText('Failed to load API definition.')).toHaveCount(0);
+    await expect(page.getByText('/programs')).toBeVisible();
   });
 });
