@@ -1,4 +1,4 @@
--- Migración: Recrear políticas RLS de leads para asegurar INSERT + SELECT con anon key
+-- Migración: Recrear políticas RLS de leads para asegurar INSERT anon y SELECT restringido
 -- El error anterior puede deberse a conflictos de policies heredadas
 
 -- Eliminar policies existentes si las hay

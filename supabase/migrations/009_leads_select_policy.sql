@@ -1,7 +1,7 @@
--- Migración: Agregar política SELECT para leads después de INSERT
--- Necesaria para que .select() funcione después de .insert()
+-- Migración: Agregar política SELECT restringida para leads
+-- Solo usuarios autenticados pueden consultar registros
 
--- Política: el lead insertado puede ser leído por quien lo insertó (anon key)
+-- Política SELECT restringida a rol authenticated
 CREATE POLICY "Leads can be read after insert" ON leads
   FOR SELECT
   TO authenticated
