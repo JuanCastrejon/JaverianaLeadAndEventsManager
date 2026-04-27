@@ -1,12 +1,23 @@
 import { createContext, useCallback, useEffect, useReducer, useRef, type ReactNode } from 'react';
 import type { EventAction, EventState } from '../types';
-import { fetchEvents } from '../services/eventService';
+import { fetchEvents, getCachedEvents } from '../services/eventService';
 
-const initialState: EventState = {
-  events: [],
-  loading: true,
-  error: null,
-};
+/**
+ * Inicializa el estado con datos en cache si están disponibles.
+ * Esto evita que la sección aparezca en blanco mientras se cargan datos remotos.
+ */
+function getInitialState(): EventState {
+  const cachedEvents = getCachedEvents();
+  const hasCachedData = cachedEvents.length > 0;
+
+  return {
+    events: cachedEvents,
+    loading: !hasCachedData, // Solo mostrar skeleton si no hay cache
+    error: null,
+  };
+}
+
+const initialState: EventState = getInitialState();
 
 function eventReducer(state: EventState, action: EventAction): EventState {
   switch (action.type) {

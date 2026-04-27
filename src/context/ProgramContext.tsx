@@ -1,15 +1,26 @@
 import { createContext, useCallback, useEffect, useReducer, useRef, type ReactNode } from 'react';
 import type { ProgramState, ProgramAction, Program } from '../types';
-import { fetchPrograms } from '../services/programService';
+import { fetchPrograms, getCachedPrograms } from '../services/programService';
 
-const initialState: ProgramState = {
-  programs: [],
-  filteredPrograms: [],
-  searchQuery: '',
-  selectedCategory: '',
-  loading: true,
-  error: null,
-};
+/**
+ * Inicializa el estado con datos en cache si están disponibles.
+ * Esto evita que la sección aparezca en blanco mientras se cargan datos remotos.
+ */
+function getInitialState(): ProgramState {
+  const cachedPrograms = getCachedPrograms();
+  const hasCachedData = cachedPrograms.length > 0;
+
+  return {
+    programs: cachedPrograms,
+    filteredPrograms: cachedPrograms,
+    searchQuery: '',
+    selectedCategory: '',
+    loading: !hasCachedData, // Solo mostrar skeleton si no hay cache
+    error: null,
+  };
+}
+
+const initialState: ProgramState = getInitialState();
 
 /**
  * Elimina diacríticos (tildes, diéresis) de un string para búsqueda por proximidad.

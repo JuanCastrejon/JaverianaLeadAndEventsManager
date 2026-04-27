@@ -4,7 +4,11 @@ import { API_CONFIG, STORAGE_KEYS } from '../utils/constants';
 
 const RETRY_DELAYS_MS = [300, 900] as const;
 
-function getCachedPrograms(): Program[] {
+/**
+ * Obtiene programas en cache de localStorage.
+ * Retorna array vacío si no hay cache o si está corrupto.
+ */
+export function getCachedPrograms(): Program[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEYS.PROGRAMS_CACHE);
     if (!raw) return [];
@@ -12,8 +16,21 @@ function getCachedPrograms(): Program[] {
     const parsed = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
 
-    return parsed as Program[];
-  } catch {
+    // Validación básica de schema
+    const validPrograms = parsed.filter((item) => {
+      return (
+        item
+        && typeof item === 'object'
+        && 'id' in item
+        && 'name' in item
+        && 'category' in item
+      );
+    });
+
+    return validPrograms as Program[];
+  } catch (err) {
+    // Log silencioso para no bloquear la carga
+    console.warn('[programService] Cache corrupto, ignorando:', err);
     return [];
   }
 }
