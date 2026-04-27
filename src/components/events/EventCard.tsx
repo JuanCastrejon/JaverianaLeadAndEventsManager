@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Calendar, MapPin, Users } from 'lucide-react';
 import type { EventItem } from '../../types';
 import { resolveEventUrl } from '../../utils/javerianaLinks';
 
@@ -29,9 +30,10 @@ export function EventCard({ event }: EventCardProps) {
       aria-label={`Ver evento ${event.name}`}
       whileHover={{ y: -6 }}
       transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-      className="group block h-132 overflow-hidden rounded-card border border-gray-100 bg-white shadow-card transition-all duration-300 hover:shadow-card-hover dark:border-gray-800 dark:bg-surface-dark-alt"
+      className="group flex h-full flex-col overflow-hidden rounded-card border border-gray-100 bg-white shadow-card transition-all duration-300 hover:shadow-card-hover dark:border-gray-800 dark:bg-surface-dark-alt"
     >
-      <div className="relative flex h-44 items-end overflow-hidden bg-linear-to-br from-javeriana-blue/95 via-javeriana-blue-light to-javeriana-gold/75 p-4 sm:h-48">
+      {/* Header con imagen/gradiente - altura fija */}
+      <div className="relative flex h-40 shrink-0 items-end overflow-hidden bg-linear-to-br from-javeriana-blue/95 via-javeriana-blue-light to-javeriana-gold/75 p-4">
         <div className="absolute inset-0 bg-radial from-javeriana-gold/25 via-transparent to-transparent" />
         <div className="relative flex flex-wrap gap-2">
           <span className="rounded-full bg-white/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-sm">
@@ -43,33 +45,47 @@ export function EventCard({ event }: EventCardProps) {
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col gap-4 p-5">
-        <h3 className="line-clamp-2 font-family-display text-xl font-bold text-javeriana-blue dark:text-javeriana-gold-light">
+      {/* Contenido - flex grow para ocupar espacio restante */}
+      <div className="flex flex-1 flex-col p-5">
+        {/* Titulo - altura fija con line-clamp */}
+        <h3 className="line-clamp-2 min-h-14 font-family-display text-xl font-bold text-javeriana-blue dark:text-javeriana-gold-light">
           {event.name}
         </h3>
 
-        <p className="line-clamp-3 text-sm leading-6 text-text-secondary dark:text-gray-300">{event.description}</p>
+        {/* Descripcion - altura fija con line-clamp */}
+        <p className="mt-3 line-clamp-2 min-h-12 text-sm leading-6 text-text-secondary dark:text-gray-300">
+          {event.description}
+        </p>
 
-        <div className="grid gap-2 sm:grid-cols-2">
+        {/* Fecha y Lugar */}
+        <div className="mt-4 grid gap-2 sm:grid-cols-2">
           <div className="rounded-2xl border border-gray-100 bg-surface-alt/70 p-3 dark:border-gray-800 dark:bg-surface-dark">
-            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-javeriana-blue/70 dark:text-gray-400">Fecha</p>
+            <div className="flex items-center gap-2">
+              <Calendar className="h-4 w-4 shrink-0 text-javeriana-blue dark:text-javeriana-gold-light" aria-hidden="true" />
+              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-javeriana-blue/70 dark:text-gray-400">Fecha</p>
+            </div>
             <p className="mt-1 text-sm font-semibold text-javeriana-blue dark:text-gray-200">{formatEventDate(event.start_date)}</p>
           </div>
           <div className="rounded-2xl border border-gray-100 bg-surface-alt/70 p-3 dark:border-gray-800 dark:bg-surface-dark">
-            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-javeriana-blue/70 dark:text-gray-400">Lugar</p>
-            <p className="mt-1 line-clamp-2 text-sm font-semibold text-javeriana-blue dark:text-gray-200">
+            <div className="flex items-center gap-2">
+              <MapPin className="h-4 w-4 shrink-0 text-javeriana-blue dark:text-javeriana-gold-light" aria-hidden="true" />
+              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-javeriana-blue/70 dark:text-gray-400">Lugar</p>
+            </div>
+            <p className="mt-1 line-clamp-1 text-sm font-semibold text-javeriana-blue dark:text-gray-200">
               {event.location ?? 'Por confirmar'}
             </p>
           </div>
         </div>
 
-        <div className="mt-auto flex flex-wrap gap-2 pt-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-text-secondary dark:text-gray-300">
-          <span className="rounded-full bg-javeriana-blue/5 px-3 py-1 dark:bg-white/5">
+        {/* Footer - mt-auto para empujar al fondo */}
+        <div className="mt-auto flex flex-wrap gap-2 pt-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-text-secondary dark:text-gray-300">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-javeriana-blue/5 px-3 py-1 dark:bg-white/5">
+            <Users className="h-3 w-3" aria-hidden="true" />
             {event.organizer ?? 'Javeriana'}
           </span>
           {hasRegistrationDeadline ? (
             <span className="rounded-full bg-javeriana-gold/15 px-3 py-1 text-javeriana-blue dark:text-javeriana-gold-light">
-              Inscripción abierta
+              Inscripcion abierta
             </span>
           ) : null}
         </div>

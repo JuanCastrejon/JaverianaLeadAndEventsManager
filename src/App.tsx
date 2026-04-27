@@ -1,14 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { motion, type Variants } from 'framer-motion';
+import { BookOpen, Users, Award, Calendar } from 'lucide-react';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
-import { SectionTitle } from './components/layout/SectionTitle';
-import { EventGrid } from './components/events/EventGrid';
-import { LeadForm } from './components/leads/LeadForm';
-import { LeadList } from './components/leads/LeadList';
-import { LeadStats } from './components/leads/LeadStats';
-import { ProgramFilters } from './components/programs/ProgramFilters';
-import { ProgramGrid } from './components/programs/ProgramGrid';
 import { useDebounce } from './hooks/useDebounce';
 import { useEvents } from './hooks/useEvents';
 import { useLeads } from './hooks/useLeads';
@@ -17,12 +11,18 @@ import { useTheme } from './hooks/useTheme';
 import { type ProgramCategory } from './types';
 import { API_CONFIG, SECTIONS } from './utils/constants';
 
+const ProgramSection = lazy(() => import('./components/sections/ProgramSection').then((module) => ({ default: module.ProgramSection })));
+const EventSection = lazy(() => import('./components/sections/EventSection').then((module) => ({ default: module.EventSection })));
+const LeadSection = lazy(() => import('./components/sections/LeadSection').then((module) => ({ default: module.LeadSection })));
+const ApiDocsSection = lazy(() => import('./components/sections/ApiDocsSection.tsx').then((module) => ({ default: module.ApiDocsSection })));
+
 const NAV_ITEMS = [
   { id: SECTIONS.HERO, label: 'Inicio' },
   { id: SECTIONS.PROGRAMS, label: 'Programas' },
   { id: SECTIONS.EVENTS, label: 'Eventos' },
   { id: SECTIONS.LEAD_FORM, label: 'Inscripción' },
   { id: SECTIONS.LEADS, label: 'Leads' },
+  { id: SECTIONS.API_DOCS, label: 'API Docs' },
 ] as const;
 
 const HERO_CONTAINER_VARIANTS: Variants = {
@@ -44,25 +44,11 @@ const HERO_ITEM_VARIANTS: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' } },
 };
 
-const SECTION_REVEAL_VARIANTS: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } },
-};
-
 export function App() {
   const { isDark, toggleTheme } = useTheme();
-  const {
-    programs,
-    allPrograms,
-    searchQuery,
-    selectedCategory,
-    loading,
-    error,
-    setSearchQuery,
-    setCategory,
-  } = usePrograms();
+  const { programs, allPrograms, searchQuery, selectedCategory, loading, error, setSearchQuery, setCategory, reloadPrograms } = usePrograms();
+  const { events } = useEvents();
   const { leads, totalLeads, deleteLead } = useLeads();
-  const { events, loading: eventsLoading, error: eventsError } = useEvents();
   const [searchInput, setSearchInput] = useState(searchQuery);
   const debouncedSearch = useDebounce(searchInput, API_CONFIG.DEBOUNCE_MS);
 
@@ -75,17 +61,17 @@ export function App() {
   }, [allPrograms]);
 
   const categoryCount = useMemo(() => {
-    const counters: Record<ProgramCategory, number> = {
+    const nextCounters: Record<ProgramCategory, number> = {
       Pregrado: 0,
       Posgrado: 0,
       'Educación Continua': 0,
     };
 
     allPrograms.forEach((program) => {
-      counters[program.category] += 1;
+      nextCounters[program.category] += 1;
     });
 
-    return counters;
+    return nextCounters;
   }, [allPrograms]);
 
   return (
@@ -100,7 +86,7 @@ export function App() {
           initial="hidden"
           animate="visible"
         >
-          <div className="grid gap-8 lg:grid-cols-[2fr_1fr] lg:items-end">
+          <div className="flex flex-col gap-8">
             <div>
               <motion.p
                 variants={HERO_ITEM_VARIANTS}
@@ -122,126 +108,102 @@ export function App() {
               </motion.p>
             </div>
 
-            <motion.div variants={HERO_ITEM_VARIANTS} className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
+            <motion.div variants={HERO_ITEM_VARIANTS} className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               <motion.div
                 whileHover={{ y: -3 }}
-                className="min-w-0 rounded-2xl bg-javeriana-blue p-3 text-white shadow-card sm:p-4"
+                className="rounded-2xl bg-javeriana-blue p-4 text-white shadow-card transition-all duration-300 hover:shadow-card-hover"
               >
-                <p className="truncate text-[10px] leading-tight uppercase tracking-[0.08em] text-white/80 sm:text-[11px]">Programas</p>
-                <p className="mt-2 text-2xl font-bold sm:text-3xl">{allPrograms.length}</p>
+                <div className="flex min-w-0 items-center gap-1.5 sm:gap-2">
+                  <BookOpen className="h-4 w-4 shrink-0 sm:h-5 sm:w-5" aria-hidden="true" />
+                  <p className="min-w-0 truncate text-[10px] leading-tight font-semibold uppercase tracking-[0.08em] text-white/80 sm:text-xs sm:tracking-wider">
+                    Programas
+                  </p>
+                </div>
+                <p className="mt-2 text-3xl font-bold">{allPrograms.length}</p>
               </motion.div>
               <motion.div
                 whileHover={{ y: -3 }}
-                className="min-w-0 rounded-2xl bg-javeriana-gold p-3 text-javeriana-blue shadow-card sm:p-4"
+                className="rounded-2xl bg-javeriana-gold p-4 text-javeriana-blue shadow-card transition-all duration-300 hover:shadow-card-hover"
               >
-                <p className="truncate text-[10px] leading-tight uppercase tracking-[0.08em] sm:text-[11px]">Facultades</p>
-                <p className="mt-2 text-2xl font-bold sm:text-3xl">{facultiesCount}</p>
+                <div className="flex min-w-0 items-center gap-1.5 sm:gap-2">
+                  <Users className="h-4 w-4 shrink-0 sm:h-5 sm:w-5" aria-hidden="true" />
+                  <p className="min-w-0 truncate text-[10px] leading-tight font-semibold uppercase tracking-[0.08em] sm:text-xs sm:tracking-wider">
+                    Facultades
+                  </p>
+                </div>
+                <p className="mt-2 text-3xl font-bold">{facultiesCount}</p>
               </motion.div>
               <motion.div
                 whileHover={{ y: -3 }}
-                className="min-w-0 rounded-2xl bg-javeriana-gold-bright p-3 text-javeriana-blue shadow-card sm:p-4"
+                className="rounded-2xl bg-javeriana-gold-bright p-4 text-javeriana-blue shadow-card transition-all duration-300 hover:shadow-card-hover"
               >
-                <p className="truncate text-[10px] leading-tight uppercase tracking-[0.08em] sm:text-[11px]">Leads</p>
-                <p className="mt-2 text-2xl font-bold sm:text-3xl">{totalLeads}</p>
+                <div className="flex min-w-0 items-center gap-1.5 sm:gap-2">
+                  <Award className="h-4 w-4 shrink-0 sm:h-5 sm:w-5" aria-hidden="true" />
+                  <p className="min-w-0 truncate text-[10px] leading-tight font-semibold uppercase tracking-[0.08em] sm:text-xs sm:tracking-wider">
+                    Leads
+                  </p>
+                </div>
+                <p className="mt-2 text-3xl font-bold">{totalLeads}</p>
               </motion.div>
               <motion.div
                 whileHover={{ y: -3 }}
-                className="min-w-0 rounded-2xl border border-javeriana-gold/35 bg-white/70 p-3 text-javeriana-blue shadow-card backdrop-blur-sm dark:border-javeriana-gold/25 dark:bg-surface-dark-alt dark:text-javeriana-gold-light sm:p-4"
+                className="rounded-2xl border border-javeriana-gold/35 bg-white/70 p-4 text-javeriana-blue shadow-card transition-all duration-300 hover:shadow-card-hover backdrop-blur-sm dark:border-javeriana-gold/25 dark:bg-surface-dark-alt dark:text-javeriana-gold-light"
               >
-                <p className="truncate text-[10px] leading-tight uppercase tracking-[0.08em] sm:text-[11px]">Eventos</p>
-                <p className="mt-2 text-2xl font-bold sm:text-3xl">{events.length}</p>
+                <div className="flex min-w-0 items-center gap-1.5 sm:gap-2">
+                  <Calendar className="h-4 w-4 shrink-0 sm:h-5 sm:w-5" aria-hidden="true" />
+                  <p className="min-w-0 truncate text-[10px] leading-tight font-semibold uppercase tracking-[0.08em] sm:text-xs sm:tracking-wider">
+                    Eventos
+                  </p>
+                </div>
+                <p className="mt-2 text-3xl font-bold">{events.length}</p>
               </motion.div>
             </motion.div>
           </div>
         </motion.section>
 
-        {/* ── Programas Académicos ── */}
-        <motion.section
-          id={SECTIONS.PROGRAMS}
-          className="mt-16 scroll-mt-28"
-          variants={SECTION_REVEAL_VARIANTS}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          <SectionTitle
-            title="Programas académicos"
-            subtitle="Explora la oferta por nombre, facultad o categoría. El filtrado ocurre sin recargas para mantener una experiencia fluida en cualquier dispositivo."
-          />
-
-          <ProgramFilters
-            searchQuery={searchInput}
+        <Suspense fallback={<SectionPlaceholder />}> 
+          <ProgramSection
+            programs={programs}
+            loading={loading}
+            error={error}
+            onRetry={reloadPrograms}
+            searchInput={searchInput}
             selectedCategory={selectedCategory}
             resultCount={programs.length}
             categoryCount={categoryCount}
             onSearchChange={setSearchInput}
             onCategoryChange={setCategory}
           />
+        </Suspense>
 
-          <ProgramGrid programs={programs} loading={loading} error={error} />
-        </motion.section>
+        <Suspense fallback={<SectionPlaceholder />}> 
+          <EventSection />
+        </Suspense>
 
-        {/* ── Eventos Javeriana ── */}
-        <motion.section
-          id={SECTIONS.EVENTS}
-          className="mt-16 scroll-mt-28"
-          variants={SECTION_REVEAL_VARIANTS}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          <SectionTitle
-            title="Eventos Javeriana"
-            subtitle="Espacio dedicado a eventos académicos, culturales, pastorales y de bienestar. Cada card te lleva a la fuente oficial de inscripción o detalle."
-          />
+        <Suspense fallback={<SectionPlaceholder />}> 
+          <LeadSection leads={leads} programs={allPrograms} onDelete={deleteLead} />
+        </Suspense>
 
-          <EventGrid events={events} loading={eventsLoading} error={eventsError} />
-        </motion.section>
-
-        {/* ── Formulario de Inscripción ── */}
-        <motion.section
-          id={SECTIONS.LEAD_FORM}
-          className="mt-16 scroll-mt-28"
-          variants={SECTION_REVEAL_VARIANTS}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          <SectionTitle
-            title="Registro de interés"
-            subtitle="Completa el formulario para registrar tu interés en un programa académico. Tus datos se almacenan localmente y se sincronizan con el servidor."
-          />
-
-          <LeadForm />
-        </motion.section>
-
-        {/* ── Leads Registrados ── */}
-        <motion.section
-          id={SECTIONS.LEADS}
-          className="mt-16 scroll-mt-28"
-          variants={SECTION_REVEAL_VARIANTS}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          <SectionTitle
-            title="Leads registrados"
-            subtitle="Vista administrativa de prospectos registrados con métricas y gestión básica."
-          />
-
-          <LeadStats leads={leads} programs={allPrograms} />
-
-          <div className="mt-6">
-            <LeadList
-              leads={leads}
-              programs={allPrograms}
-              onDelete={deleteLead}
-            />
-          </div>
-        </motion.section>
+        <Suspense fallback={<SectionPlaceholder />}> 
+          <ApiDocsSection />
+        </Suspense>
       </main>
 
       <Footer />
+    </div>
+  );
+}
+
+function SectionPlaceholder() {
+  return (
+    <div className="mt-16 rounded-card border border-gray-100 bg-white p-8 shadow-card dark:border-gray-800 dark:bg-surface-dark-alt">
+      <div className="h-8 w-72 animate-pulse rounded-full bg-gray-200 dark:bg-gray-700" />
+      <div className="mt-4 h-1.5 w-20 animate-pulse rounded-full bg-javeriana-gold/60" />
+      <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        {Array.from({ length: 3 }).map((_, index) => (
+          <div key={`section-placeholder-${index}`} className="h-72 animate-pulse rounded-card bg-gray-100 dark:bg-gray-800" />
+        ))}
+      </div>
     </div>
   );
 }

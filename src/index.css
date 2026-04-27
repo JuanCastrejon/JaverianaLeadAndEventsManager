@@ -51,6 +51,611 @@ body {
   background-color: var(--color-surface);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.dark body {
+  color: var(--color-text-light);
+  background-color: var(--color-surface-dark);
+}
+
+/* Swagger UI theming */
+.swagger-shell {
+  color: var(--color-text-primary);
+  color-scheme: light;
+  position: relative;
+  z-index: 10;
+}
+
+.swagger-shell .swagger-ui {
+  font-family: var(--font-family-body);
+  background: transparent;
+  color: inherit;
+}
+
+.swagger-shell .swagger-ui .topbar {
+  display: none;
+}
+
+.swagger-shell .swagger-ui .info .title {
+  color: var(--color-javeriana-blue);
+  font-family: var(--font-family-display);
+}
+
+.swagger-shell .swagger-ui .info .title > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-left: 0.65rem;
+  vertical-align: middle;
+}
+
+.swagger-shell .swagger-ui .info .title small {
+  display: inline-flex;
+  align-items: center;
+}
+
+.swagger-shell .swagger-ui .info .title .version-stamp {
+  background: transparent;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.swagger-shell .swagger-ui .info .title pre.version {
+  margin: 0;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid rgba(0, 51, 102, 0.24);
+  border-radius: 999px;
+  background: rgba(0, 51, 102, 0.08);
+  color: var(--color-javeriana-blue);
+  font-family: var(--font-family-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.swagger-shell .swagger-ui .info .title .version-stamp pre.version {
+  border-color: rgba(200, 169, 97, 0.42);
+  background: rgba(200, 169, 97, 0.22);
+  color: var(--color-javeriana-blue-dark);
+}
+
+.swagger-shell .swagger-ui .info .description,
+.swagger-shell .swagger-ui .info p,
+.swagger-shell .swagger-ui .renderedMarkdown,
+.swagger-shell .swagger-ui .renderedMarkdown p,
+.swagger-shell .swagger-ui .renderedMarkdown li,
+.swagger-shell .swagger-ui .renderedMarkdown td,
+.swagger-shell .swagger-ui .opblock-tag,
+.swagger-shell .swagger-ui .opblock-summary-description,
+.swagger-shell .swagger-ui .opblock-description-wrapper,
+.swagger-shell .swagger-ui .parameter__name,
+.swagger-shell .swagger-ui .parameter__type,
+.swagger-shell .swagger-ui .parameter__in,
+.swagger-shell .swagger-ui .response-col_status,
+.swagger-shell .swagger-ui .response-col_links,
+.swagger-shell .swagger-ui .response-col_description,
+.swagger-shell .swagger-ui .model-title,
+.swagger-shell .swagger-ui .tab li,
+.swagger-shell .swagger-ui label,
+.swagger-shell .swagger-ui .parameter__empty,
+.swagger-shell .swagger-ui .opblock .opblock-section-header h4,
+.swagger-shell .swagger-ui .responses-inner h4,
+.swagger-shell .swagger-ui .responses-inner h5 {
+  color: var(--color-text-secondary);
+}
+
+.swagger-shell .swagger-ui .opblock,
+.swagger-shell .swagger-ui .opblock-tag,
+.swagger-shell .swagger-ui .opblock .opblock-summary,
+.swagger-shell .swagger-ui .opblock .opblock-section-header,
+.swagger-shell .swagger-ui .opblock .opblock-body,
+.swagger-shell .swagger-ui .scheme-container,
+.swagger-shell .swagger-ui .model-box,
+.swagger-shell .swagger-ui .responses-table,
+.swagger-shell .swagger-ui .parameters,
+.swagger-shell .swagger-ui .auth-wrapper,
+.swagger-shell .swagger-ui .download-contents {
+  background: transparent;
+  border-color: rgba(0, 51, 102, 0.12);
+}
+
+.swagger-shell .swagger-ui .btn,
+.swagger-shell .swagger-ui .btn.authorize,
+.swagger-shell .swagger-ui select,
+.swagger-shell .swagger-ui input[type='text'],
+.swagger-shell .swagger-ui textarea {
+  border-color: rgba(0, 51, 102, 0.18);
+  color: var(--color-text-primary);
+}
+
+.swagger-shell .swagger-ui code,
+.swagger-shell .swagger-ui pre:not(.version),
+.swagger-shell .swagger-ui .example,
+.swagger-shell .swagger-ui .examples,
+.swagger-shell .swagger-ui .highlight-code,
+.swagger-shell .swagger-ui .microlight {
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+/* Syntax highlighting for light mode - use dark code blocks */
+.swagger-shell .swagger-ui .microlight .string,
+.swagger-shell .swagger-ui .highlight-code .hljs-string {
+  color: #7dd3fc;
+}
+
+.swagger-shell .swagger-ui .microlight .number,
+.swagger-shell .swagger-ui .highlight-code .hljs-number {
+  color: #a5f3fc;
+}
+
+.swagger-shell .swagger-ui .microlight .boolean,
+.swagger-shell .swagger-ui .highlight-code .hljs-literal {
+  color: #fbbf24;
+}
+
+.swagger-shell .swagger-ui .microlight .null,
+.swagger-shell .swagger-ui .highlight-code .hljs-keyword {
+  color: #f472b6;
+}
+
+.swagger-shell .swagger-ui .microlight .key,
+.swagger-shell .swagger-ui .highlight-code .hljs-attr {
+  color: #c4b5fd;
+}
+
+/* Response links and controls text */
+.swagger-shell .swagger-ui .response-control-media-type__accept-message {
+  color: var(--color-javeriana-blue);
+}
+
+.swagger-shell .swagger-ui .response-control-media-type__accept-message code {
+  background: transparent;
+  color: var(--color-javeriana-blue);
+  font-weight: 600;
+}
+
+/* Select dropdowns in light mode */
+.swagger-shell .swagger-ui select {
+  background-color: #ffffff;
+  border: 1px solid var(--color-javeriana-blue);
+  color: var(--color-text-primary);
+}
+
+.swagger-shell .swagger-ui select option {
+  background-color: #ffffff;
+  color: var(--color-text-primary);
+}
+
+/* Authorization modal - Light mode */
+.swagger-shell .swagger-ui .dialog-ux .modal-ux {
+  background-color: var(--color-surface);
+  border: 1px solid rgba(0, 51, 102, 0.16);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+  z-index: 1000;
+}
+
+.swagger-shell .swagger-ui .dialog-ux {
+  z-index: 1000;
+}
+
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-header {
+  background-color: var(--color-surface-alt);
+  border-bottom: 1px solid rgba(0, 51, 102, 0.12);
+}
+
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-header h3 {
+  color: var(--color-javeriana-blue);
+}
+
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-header .close-modal {
+  filter: none;
+}
+
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-content {
+  background-color: var(--color-surface);
+}
+
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-content h4,
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-content label,
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-content p,
+.swagger-shell .swagger-ui .auth-container h4,
+.swagger-shell .swagger-ui .auth-container label,
+.swagger-shell .swagger-ui .auth-container p,
+.swagger-shell .swagger-ui .auth-container code {
+  color: var(--color-text-primary);
+}
+
+.swagger-shell .swagger-ui .auth-container code {
+  background-color: rgba(0, 51, 102, 0.08);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+}
+
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-content input[type="text"],
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-content input[type="password"] {
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 51, 102, 0.18);
+  color: var(--color-text-primary);
+}
+
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-content input[type="text"]::placeholder,
+.swagger-shell .swagger-ui .dialog-ux .modal-ux-content input[type="password"]::placeholder {
+  color: #6b7280;
+}
+
+.swagger-shell .swagger-ui .btn.modal-btn {
+  border: 1px solid rgba(0, 51, 102, 0.18);
+  color: var(--color-javeriana-blue);
+  background-color: #ffffff;
+}
+
+.swagger-shell .swagger-ui .btn.modal-btn:hover {
+  background-color: var(--color-surface-alt);
+}
+
+/* Tab styling */
+.swagger-shell .swagger-ui .tab li {
+  color: var(--color-text-secondary);
+}
+
+.swagger-shell .swagger-ui .tab li.active {
+  color: var(--color-javeriana-blue);
+}
+
+/* Table headers */
+.swagger-shell .swagger-ui table thead tr th,
+.swagger-shell .swagger-ui table thead tr td {
+  color: var(--color-text-primary);
+  border-color: rgba(0, 51, 102, 0.15);
+}
+
+.swagger-shell .swagger-ui table tbody tr td {
+  color: var(--color-text-secondary);
+}
+
+.dark .swagger-shell {
+  color: var(--color-text-light);
+  color-scheme: dark;
+}
+
+.dark .swagger-shell .swagger-ui,
+.dark .swagger-shell .swagger-ui .scheme-container,
+.dark .swagger-shell .swagger-ui .opblock-tag,
+.dark .swagger-shell .swagger-ui .opblock .opblock-summary,
+.dark .swagger-shell .swagger-ui .opblock .opblock-section-header,
+.dark .swagger-shell .swagger-ui .opblock .opblock-body,
+.dark .swagger-shell .swagger-ui .model-box,
+.dark .swagger-shell .swagger-ui .responses-table,
+.dark .swagger-shell .swagger-ui .parameters,
+.dark .swagger-shell .swagger-ui .auth-wrapper,
+.dark .swagger-shell .swagger-ui .download-contents {
+  background-color: transparent;
+  color: #e5e7eb;
+}
+
+.dark .swagger-shell .swagger-ui .info .title,
+.dark .swagger-shell .swagger-ui .info .description,
+.dark .swagger-shell .swagger-ui .info p,
+.dark .swagger-shell .swagger-ui .renderedMarkdown,
+.dark .swagger-shell .swagger-ui .renderedMarkdown p,
+.dark .swagger-shell .swagger-ui .renderedMarkdown li,
+.dark .swagger-shell .swagger-ui .renderedMarkdown td,
+.dark .swagger-shell .swagger-ui .opblock-tag,
+.dark .swagger-shell .swagger-ui .opblock-summary-description,
+.dark .swagger-shell .swagger-ui .opblock-description-wrapper,
+.dark .swagger-shell .swagger-ui .parameter__name,
+.dark .swagger-shell .swagger-ui .parameter__type,
+.dark .swagger-shell .swagger-ui .parameter__in,
+.dark .swagger-shell .swagger-ui .response-col_status,
+.dark .swagger-shell .swagger-ui .response-col_links,
+.dark .swagger-shell .swagger-ui .response-col_description,
+.dark .swagger-shell .swagger-ui .model-title,
+.dark .swagger-shell .swagger-ui .tab li,
+.dark .swagger-shell .swagger-ui label,
+.dark .swagger-shell .swagger-ui .parameter__empty,
+.dark .swagger-shell .swagger-ui .opblock .opblock-section-header h4,
+.dark .swagger-shell .swagger-ui .responses-inner h4,
+.dark .swagger-shell .swagger-ui .responses-inner h5 {
+  color: #e5e7eb;
+}
+
+.dark .swagger-shell .swagger-ui .opblock,
+.dark .swagger-shell .swagger-ui .opblock-tag,
+.dark .swagger-shell .swagger-ui .opblock .opblock-summary,
+.dark .swagger-shell .swagger-ui .opblock .opblock-section-header,
+.dark .swagger-shell .swagger-ui .opblock .opblock-body,
+.dark .swagger-shell .swagger-ui .scheme-container,
+.dark .swagger-shell .swagger-ui .model-box,
+.dark .swagger-shell .swagger-ui .responses-table,
+.dark .swagger-shell .swagger-ui .parameters,
+.dark .swagger-shell .swagger-ui .auth-wrapper,
+.dark .swagger-shell .swagger-ui .download-contents,
+.dark .swagger-shell .swagger-ui table,
+.dark .swagger-shell .swagger-ui table tbody,
+.dark .swagger-shell .swagger-ui table thead,
+.dark .swagger-shell .swagger-ui table tr,
+.dark .swagger-shell .swagger-ui table th,
+.dark .swagger-shell .swagger-ui table td {
+  border-color: rgba(200, 169, 97, 0.22);
+}
+
+.dark .swagger-shell .swagger-ui .opblock .opblock-summary-method {
+  color: #0f1729;
+  font-weight: 700;
+}
+
+.dark .swagger-shell .swagger-ui .opblock .opblock-summary-path,
+.dark .swagger-shell .swagger-ui .opblock .opblock-summary-description {
+  color: #f8fafc;
+}
+
+.dark .swagger-shell .swagger-ui .opblock .opblock-summary-path {
+  color: var(--color-javeriana-gold-light);
+  font-weight: 700;
+  opacity: 1;
+}
+
+.dark .swagger-shell .swagger-ui .opblock .opblock-summary-description {
+  color: #e5e7eb;
+}
+
+.dark .swagger-shell .swagger-ui .opblock.opblock-get .opblock-summary-path,
+.dark .swagger-shell .swagger-ui .opblock.opblock-post .opblock-summary-path,
+.dark .swagger-shell .swagger-ui .opblock.opblock-put .opblock-summary-path,
+.dark .swagger-shell .swagger-ui .opblock.opblock-delete .opblock-summary-path,
+.dark .swagger-shell .swagger-ui .opblock.opblock-patch .opblock-summary-path {
+  text-shadow: 0 0 1px rgba(15, 23, 42, 0.5);
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux {
+  background-color: var(--color-surface-dark);
+  border: 1px solid rgba(200, 169, 97, 0.3);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-header {
+  background-color: var(--color-surface-dark-alt);
+  border-bottom: 1px solid rgba(200, 169, 97, 0.2);
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content {
+  background-color: var(--color-surface-dark);
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .auth-container {
+  color: #e5e7eb;
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .auth-container .auth-btn-wrapper {
+  border-top: 1px solid rgba(200, 169, 97, 0.16);
+  padding-top: 1rem;
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content input[type="text"],
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content input[type="password"] {
+  background-color: var(--color-surface-dark-alt);
+  border: 1px solid rgba(200, 169, 97, 0.4);
+  color: #f8fafc;
+}
+
+.dark .swagger-shell .swagger-ui .btn,
+.dark .swagger-shell .swagger-ui .btn.authorize,
+.dark .swagger-shell .swagger-ui select,
+.dark .swagger-shell .swagger-ui input[type='text'],
+.dark .swagger-shell .swagger-ui textarea {
+  background-color: rgba(15, 23, 42, 0.92);
+  border-color: rgba(200, 169, 97, 0.28);
+  color: #f8fafc;
+}
+
+.dark .swagger-shell .swagger-ui code,
+.dark .swagger-shell .swagger-ui pre:not(.version),
+.dark .swagger-shell .swagger-ui .example,
+.dark .swagger-shell .swagger-ui .examples,
+.dark .swagger-shell .swagger-ui .highlight-code,
+.dark .swagger-shell .swagger-ui .microlight {
+  background: rgba(15, 23, 42, 0.95);
+  color: #e2e8f0;
+}
+
+/* Syntax highlighting for dark mode */
+.dark .swagger-shell .swagger-ui .microlight .string,
+.dark .swagger-shell .swagger-ui .highlight-code .hljs-string {
+  color: #7dd3fc;
+}
+
+.dark .swagger-shell .swagger-ui .microlight .number,
+.dark .swagger-shell .swagger-ui .highlight-code .hljs-number {
+  color: #a5f3fc;
+}
+
+.dark .swagger-shell .swagger-ui .microlight .boolean,
+.dark .swagger-shell .swagger-ui .highlight-code .hljs-literal {
+  color: #fbbf24;
+}
+
+.dark .swagger-shell .swagger-ui .microlight .null,
+.dark .swagger-shell .swagger-ui .highlight-code .hljs-keyword {
+  color: #f472b6;
+}
+
+.dark .swagger-shell .swagger-ui .microlight .key,
+.dark .swagger-shell .swagger-ui .highlight-code .hljs-attr {
+  color: #c4b5fd;
+}
+
+/* Response links and controls text - dark mode */
+.dark .swagger-shell .swagger-ui .response-control-media-type__accept-message {
+  color: var(--color-javeriana-gold-light);
+}
+
+.dark .swagger-shell .swagger-ui .response-control-media-type__accept-message code {
+  background: transparent;
+  color: var(--color-javeriana-gold-light);
+  font-weight: 600;
+}
+
+/* Select dropdowns in dark mode */
+.dark .swagger-shell .swagger-ui select {
+  background-color: rgba(15, 23, 42, 0.95);
+  border: 1px solid var(--color-javeriana-gold);
+  color: #f8fafc;
+}
+
+.dark .swagger-shell .swagger-ui select option {
+  background-color: #1a2332;
+  color: #f8fafc;
+}
+
+/* Tab styling - dark mode */
+.dark .swagger-shell .swagger-ui .tab li {
+  color: #9ca3af;
+}
+
+.dark .swagger-shell .swagger-ui .tab li.active {
+  color: var(--color-javeriana-gold-light);
+}
+
+/* Table headers - dark mode */
+.dark .swagger-shell .swagger-ui table thead tr th,
+.dark .swagger-shell .swagger-ui table thead tr td {
+  color: #e5e7eb;
+  border-color: rgba(200, 169, 97, 0.25);
+}
+
+.dark .swagger-shell .swagger-ui table tbody tr td {
+  color: #d1d5db;
+}
+
+.dark .swagger-shell .swagger-ui .info .title pre.version {
+  border-color: rgba(200, 169, 97, 0.34);
+  background: rgba(15, 23, 42, 0.72);
+  color: #f8fafc;
+}
+
+.dark .swagger-shell .swagger-ui .info .title .version-stamp pre.version {
+  border-color: rgba(253, 184, 19, 0.42);
+  background: rgba(253, 184, 19, 0.16);
+  color: var(--color-javeriana-gold-bright);
+}
+
+/* Authorization modal - Dark mode */
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux {
+  background-color: var(--color-surface-dark);
+  border: 1px solid rgba(200, 169, 97, 0.3);
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-header {
+  background-color: var(--color-surface-dark-alt);
+  border-bottom: 1px solid rgba(200, 169, 97, 0.2);
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-header h3 {
+  color: #f8fafc;
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-header .close-modal {
+  filter: invert(1);
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content {
+  background-color: var(--color-surface-dark);
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content h4,
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content label,
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content p,
+.dark .swagger-shell .swagger-ui .auth-container h4,
+.dark .swagger-shell .swagger-ui .auth-container label,
+.dark .swagger-shell .swagger-ui .auth-container p,
+.dark .swagger-shell .swagger-ui .auth-container code {
+  color: #e5e7eb;
+}
+
+.dark .swagger-shell .swagger-ui .auth-container code {
+  background-color: rgba(200, 169, 97, 0.15);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content input[type="text"],
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content input[type="password"] {
+  background-color: var(--color-surface-dark-alt);
+  border: 1px solid rgba(200, 169, 97, 0.4);
+  color: #f8fafc;
+}
+
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content input[type="text"]::placeholder,
+.dark .swagger-shell .swagger-ui .dialog-ux .modal-ux-content input[type="password"]::placeholder {
+  color: #9ca3af;
+}
+
+/* Buttons in modal - Dark mode */
+.dark .swagger-shell .swagger-ui .btn.modal-btn {
+  border: 1px solid var(--color-javeriana-gold);
+  color: var(--color-javeriana-gold-light);
+  background-color: transparent;
+}
+
+.dark .swagger-shell .swagger-ui .btn.modal-btn:hover {
+  background-color: rgba(200, 169, 97, 0.15);
+}
+
+.dark .swagger-shell .swagger-ui .btn.modal-btn.auth.authorize {
+  background-color: var(--color-javeriana-gold);
+  color: var(--color-javeriana-blue-dark);
+  border-color: var(--color-javeriana-gold);
+}
+
+.dark .swagger-shell .swagger-ui .btn.modal-btn.auth.authorize:hover {
+  background-color: var(--color-javeriana-gold-bright);
+}
+
+/* Authorize button in main view - Dark mode */
+.dark .swagger-shell .swagger-ui .btn.authorize {
+  border-color: var(--color-javeriana-gold);
+  color: var(--color-javeriana-gold-light);
+}
+
+.dark .swagger-shell .swagger-ui .btn.authorize svg {
+  fill: var(--color-javeriana-gold-light);
+}
+
+.dark .swagger-shell .swagger-ui .btn.authorize:hover {
+  background-color: rgba(200, 169, 97, 0.15);
+}
+
+/* Try it out button - Dark mode */
+.dark .swagger-shell .swagger-ui .try-out__btn {
+  border-color: var(--color-javeriana-gold);
+  color: var(--color-javeriana-gold-light);
+}
+
+.dark .swagger-shell .swagger-ui .try-out__btn:hover {
+  background-color: rgba(200, 169, 97, 0.15);
+}
+
+/* Execute button - Dark mode */
+.dark .swagger-shell .swagger-ui .btn.execute {
+  background-color: var(--color-javeriana-gold);
+  color: var(--color-javeriana-blue-dark);
+  border-color: var(--color-javeriana-gold);
+}
+
+.dark .swagger-shell .swagger-ui .btn.execute:hover {
+  background-color: var(--color-javeriana-gold-bright);
+}
+
+/* Lock icon in operations */
+.dark .swagger-shell .swagger-ui .authorization__btn svg {
+  fill: var(--color-javeriana-gold-light);
 }
 
 /* Scrollbar styling */

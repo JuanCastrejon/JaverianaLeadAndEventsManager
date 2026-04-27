@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
+import { Search, Zap } from 'lucide-react';
 import { PROGRAM_CATEGORIES, type ProgramCategory } from '../../types';
 
 interface ProgramFiltersProps {
@@ -29,17 +30,20 @@ export function ProgramFilters({
     >
       <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
         <label className="block">
-          <span className="mb-2 block text-sm font-semibold text-javeriana-blue dark:text-gray-200">
+          <span className="mb-2 flex items-center gap-2 text-sm font-semibold text-javeriana-blue dark:text-gray-200">
+            <Search className="h-4 w-4" aria-hidden="true" />
             Buscar por nombre o facultad
           </span>
-          <input
-            value={searchQuery}
-            onChange={(event) => {
-              onSearchChange(event.target.value);
-            }}
-            placeholder="Ej: Ingeniería, Medicina, Derecho"
-            className="w-full rounded-input border border-gray-300 bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-javeriana-gold focus:ring-2 focus:ring-javeriana-gold/30 dark:border-gray-700 dark:bg-surface-dark dark:text-gray-100"
-          />
+          <div className="relative">
+            <input
+              value={searchQuery}
+              onChange={(event) => {
+                onSearchChange(event.target.value);
+              }}
+              placeholder="Ej: Ingeniería, Medicina, Derecho"
+              className="w-full rounded-input border border-gray-300 bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-javeriana-gold focus:ring-2 focus:ring-javeriana-gold/30 dark:border-gray-700 dark:bg-surface-dark dark:text-gray-100"
+            />
+          </div>
         </label>
 
         <div>
@@ -67,12 +71,13 @@ export function ProgramFilters({
           whileHover={{ y: -1 }}
           whileTap={{ scale: 0.98 }}
           layout
-          className={`rounded-full px-4 py-2 text-xs font-bold transition-colors ${
+          className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold transition-colors ${
             selectedCategory === ''
               ? 'bg-javeriana-blue text-white'
               : 'bg-gray-100 text-javeriana-blue hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700'
           }`}
         >
+          <Zap className="h-3.5 w-3.5" aria-hidden="true" />
           Todos
         </motion.button>
 

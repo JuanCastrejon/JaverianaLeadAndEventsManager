@@ -80,3 +80,4 @@ test-results/
 .vscode/mcp.json
 .vscode/extensions.json
 .github/MCP.md
+implementation_plan.md

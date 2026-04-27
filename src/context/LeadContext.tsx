@@ -5,11 +5,19 @@ import {
   saveLeadsToStorage,
 } from '../services/leadService';
 
-const initialState: LeadState = {
-  leads: [],
-  loading: false,
-  error: null,
-};
+/**
+ * Inicializa el estado con leads desde localStorage.
+ * Los leads siempre deben persistir localmente.
+ */
+function getInitialState(): LeadState {
+  return {
+    leads: getLeadsFromStorage(),
+    loading: false,
+    error: null,
+  };
+}
+
+const initialState: LeadState = getInitialState();
 
 function leadReducer(state: LeadState, action: LeadAction): LeadState {
   switch (action.type) {
