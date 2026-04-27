@@ -65,6 +65,8 @@ body {
 .swagger-shell {
   color: var(--color-text-primary);
   color-scheme: light;
+  position: relative;
+  z-index: 10;
 }
 
 .swagger-shell .swagger-ui {
@@ -236,6 +238,11 @@ body {
   background-color: var(--color-surface);
   border: 1px solid rgba(0, 51, 102, 0.16);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+  z-index: 1000;
+}
+
+.swagger-shell .swagger-ui .dialog-ux {
+  z-index: 1000;
 }
 
 .swagger-shell .swagger-ui .dialog-ux .modal-ux-header {

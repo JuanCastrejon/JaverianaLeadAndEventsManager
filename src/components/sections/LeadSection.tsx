@@ -19,33 +19,33 @@ const sectionVariants: Variants = {
 
 export function LeadSection({ leads, programs, onDelete }: LeadSectionProps) {
   return (
-    <motion.section
-      id={SECTIONS.LEAD_FORM}
-      className="mt-16 scroll-mt-28"
-      variants={sectionVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-    >
-      <SectionTitle
-        title="Registro de interés"
-        subtitle="Completa el formulario para registrar tu interés en un programa académico. Tus datos se almacenan localmente y se sincronizan con el servidor."
-      />
-
-      <LeadForm />
-
-      <div className="mt-16" id={SECTIONS.LEADS}>
+    <>
+      <div id={SECTIONS.LEAD_FORM} style={{ scrollMarginTop: '163px' }} />
+      <motion.section
+        className="mt-25 text-text-primary dark:text-text-light"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
         <SectionTitle
-          title="Leads registrados"
-          subtitle="Vista administrativa de prospectos registrados con métricas y gestión básica."
+          title="Registro de interés"
+          subtitle="Completa el formulario para registrar tu interés en un programa académico. Tus datos se almacenan localmente y se sincronizan con el servidor."
         />
+        <LeadForm />
 
-        <LeadStats leads={leads} programs={programs} />
-
-        <div className="mt-6">
-          <LeadList leads={leads} programs={programs} onDelete={onDelete} />
+        <div id={SECTIONS.LEADS} style={{ scrollMarginTop: '163px' }} />
+        <div className="mt-25">
+          <SectionTitle
+            title="Leads registrados"
+            subtitle="Vista administrativa de prospectos registrados con métricas y gestión básica."
+          />
+          <LeadStats leads={leads} programs={programs} />
+          <div className="mt-6">
+            <LeadList leads={leads} programs={programs} onDelete={onDelete} />
+          </div>
         </div>
-      </div>
-    </motion.section>
+      </motion.section>
+    </>
   );
 }

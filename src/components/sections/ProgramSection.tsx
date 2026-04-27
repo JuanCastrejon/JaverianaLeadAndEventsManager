@@ -23,42 +23,31 @@ const sectionVariants: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } },
 };
 
-export function ProgramSection({
-  programs,
-  loading,
-  error,
-  onRetry,
-  searchInput,
-  selectedCategory,
-  resultCount,
-  categoryCount,
-  onSearchChange,
-  onCategoryChange,
-}: ProgramSectionProps) {
+export function ProgramSection({ programs, loading, error, onRetry, searchInput, selectedCategory, resultCount, categoryCount, onSearchChange, onCategoryChange }: ProgramSectionProps) {
   return (
-    <motion.section
-      id={SECTIONS.PROGRAMS}
-      className="mt-16 scroll-mt-28"
-      variants={sectionVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-    >
-      <SectionTitle
-        title="Programas académicos"
-        subtitle="Explora la oferta por nombre, facultad o categoría. El filtrado ocurre sin recargas para mantener una experiencia fluida en cualquier dispositivo."
-      />
-
-      <ProgramFilters
-        searchQuery={searchInput}
-        selectedCategory={selectedCategory}
-        resultCount={resultCount}
-        categoryCount={categoryCount}
-        onSearchChange={onSearchChange}
-        onCategoryChange={onCategoryChange}
-      />
-
-      <ProgramGrid programs={programs} loading={loading} error={error} onRetry={onRetry} />
-    </motion.section>
+    <>
+      <div id={SECTIONS.PROGRAMS} style={{ scrollMarginTop: '163px' }} />
+      <motion.section
+        className="mt-25 text-text-primary dark:text-text-light"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        <SectionTitle
+          title="Programas académicos"
+          subtitle="Explora la oferta por nombre, facultad o categoría. El filtrado ocurre sin recargas para mantener una experiencia fluida en cualquier dispositivo."
+        />
+        <ProgramFilters
+          searchQuery={searchInput}
+          selectedCategory={selectedCategory}
+          resultCount={resultCount}
+          categoryCount={categoryCount}
+          onSearchChange={onSearchChange}
+          onCategoryChange={onCategoryChange}
+        />
+        <ProgramGrid programs={programs} loading={loading} error={error} onRetry={onRetry} />
+      </motion.section>
+    </>
   );
 }

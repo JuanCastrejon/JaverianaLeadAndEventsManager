@@ -45,10 +45,10 @@ export function buildApiDocsSpec(baseUrl: string) {
     ],
     components: {
       securitySchemes: {
-        apikeyAuth: {
+        'API key Auth': {
           type: 'apiKey',
           in: 'header',
-          name: 'apikey',
+          name: 'API key',
         },
       },
       parameters: {
@@ -386,7 +386,7 @@ export function buildApiDocsSpec(baseUrl: string) {
         ),
       },
     },
-    security: [{ apikeyAuth: [] }],
+    security: [{ 'API key Auth': [] }],
     paths: {
       '/programs': {
         get: {

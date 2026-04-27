@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef, type MouseEvent } from 'react';
 import { motion } from 'framer-motion';
 import { Lock, Globe, Mail, Heart, Zap, ExternalLink, Layers } from 'lucide-react';
 
@@ -43,6 +44,140 @@ function MoonIcon() {
 }
 
 export function Header({ navItems, isDark, onToggleTheme }: HeaderProps) {
+  const [activeSection, setActiveSection] = useState<string>('hero');
+  const clickedTargetRef = useRef<string | null>(null);
+  const clickLockRef = useRef(false);
+  const clickUnlockTimeoutRef = useRef<number | null>(null);
+
+  const handleNavClick = (targetId: string) => {
+    clickedTargetRef.current = targetId;
+    clickLockRef.current = true;
+
+    if (clickUnlockTimeoutRef.current !== null) {
+      window.clearTimeout(clickUnlockTimeoutRef.current);
+    }
+
+    clickUnlockTimeoutRef.current = window.setTimeout(() => {
+      if (clickedTargetRef.current === targetId) {
+        clickedTargetRef.current = null;
+      }
+
+      clickLockRef.current = false;
+      clickUnlockTimeoutRef.current = null;
+    }, 1800);
+
+    setActiveSection(targetId);
+  };
+
+  const handleHomeClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+
+    clickedTargetRef.current = null;
+    clickLockRef.current = false;
+
+    if (clickUnlockTimeoutRef.current !== null) {
+      window.clearTimeout(clickUnlockTimeoutRef.current);
+      clickUnlockTimeoutRef.current = null;
+    }
+
+    setActiveSection('hero');
+    window.history.replaceState(null, '', '#');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    // Intersection Observer for scroll-based active section
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const clickLockActive = clickLockRef.current;
+        const visibleEntry = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((left, right) => right.intersectionRatio - left.intersectionRatio)[0];
+
+        if (!visibleEntry?.target.id) {
+          return;
+        }
+
+        const visibleId = visibleEntry.target.id;
+        const clickedTarget = clickedTargetRef.current;
+
+        if (clickLockActive && clickedTarget && visibleId !== clickedTarget) {
+          return;
+        }
+
+        if (clickedTarget && visibleId === clickedTarget) {
+          clickedTargetRef.current = null;
+          clickLockRef.current = false;
+
+          if (clickUnlockTimeoutRef.current !== null) {
+            window.clearTimeout(clickUnlockTimeoutRef.current);
+            clickUnlockTimeoutRef.current = null;
+          }
+        }
+
+        setActiveSection(visibleId);
+      },
+      {
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: [0, 0.2, 0.4, 0.6, 0.8],
+      }
+    );
+
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '') || 'hero';
+
+      if (!clickedTargetRef.current) {
+        setActiveSection(hash);
+      }
+
+      if (clickedTargetRef.current === hash) {
+        setActiveSection(hash);
+      }
+    };
+
+    handleHashChange();
+    window.addEventListener('hashchange', handleHashChange);
+
+    const observedSections = new Set<string>();
+
+    const observeSections = () => {
+      navItems.forEach((item) => {
+        if (observedSections.has(item.id)) {
+          return;
+        }
+
+        const element = document.getElementById(item.id);
+        if (element) {
+          observer.observe(element);
+          observedSections.add(item.id);
+        }
+      });
+    };
+
+    observeSections();
+
+    const mutationObserver = new MutationObserver(() => {
+      observeSections();
+    });
+
+    mutationObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+
+      if (clickUnlockTimeoutRef.current !== null) {
+        window.clearTimeout(clickUnlockTimeoutRef.current);
+        clickUnlockTimeoutRef.current = null;
+      }
+
+      mutationObserver.disconnect();
+      observer.disconnect();
+    };
+  }, [navItems]);
+
   const quickLinks = [
     { label: 'Intranet', href: 'https://intranet.javeriana.edu.co/inicio', Icon: Lock },
     { label: 'Campus Virtual', href: 'https://campusvirtual.javeriana.edu.co/', Icon: Globe },
@@ -80,44 +215,69 @@ export function Header({ navItems, isDark, onToggleTheme }: HeaderProps) {
         </div>
       </div>
 
-      <div className="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8 lg:py-3">
-        <a href="#hero" className="flex items-center gap-3">
+      <div className="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6 md:flex-nowrap lg:px-8 lg:py-3">
+        <a
+          href="#"
+          onClick={handleHomeClick}
+          className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3 md:flex-none"
+        >
           <img
             src="/assets/logo/Logo-PUJ-Bogota-90.svg"
             alt="Pontificia Universidad Javeriana"
-            className="h-12 w-auto shrink-0 object-contain"
+            className="h-10 w-auto shrink-0 object-contain sm:h-12"
           />
-          <div className="hidden sm:block">
-            <p className="font-family-display text-lg font-bold text-javeriana-blue dark:text-javeriana-gold-light">
+          <div className="hidden min-w-0 sm:block">
+            <p className="truncate font-family-display text-base font-bold text-javeriana-blue dark:text-javeriana-gold-light md:text-lg">
               Javeriana Lead Manager
             </p>
-            <p className="text-xs text-text-secondary dark:text-gray-400">Dirección de Mercadeo</p>
+            <p className="hidden text-xs text-text-secondary dark:text-gray-400 lg:block">Dirección de Mercadeo</p>
           </div>
         </a>
 
-        <nav className="hidden items-center gap-1 lg:flex">
-          {navItems.map((item) => (
-            <motion.a
-              key={item.id}
-              href={`#${item.id}`}
-              whileHover={{ y: -1 }}
-              whileTap={{ scale: 0.98 }}
-              className="rounded-md px-3 py-2 text-sm font-semibold text-javeriana-blue transition-colors hover:bg-javeriana-blue/5 hover:text-javeriana-blue-light dark:text-gray-200 dark:hover:bg-gray-800"
-            >
-              {item.label}
-            </motion.a>
-          ))}
-          <motion.a
-            href="#programs"
-            whileHover={{ y: -1, scale: 1.01 }}
-            whileTap={{ scale: 0.98 }}
-            className="ml-2 rounded-lg bg-[#F8CD00] px-4 py-2 text-sm font-bold text-javeriana-blue transition-colors hover:bg-javeriana-blue hover:text-white"
-          >
-            Estudia en la Javeriana
-          </motion.a>
+        <nav className="hidden items-center gap-1 xl:flex">
+          {navItems.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <motion.a
+                key={item.id}
+                href={item.id === 'hero' ? '#' : `#${item.id}`}
+                onClick={(event) => {
+                  if (item.id === 'hero') {
+                    handleHomeClick(event);
+                    return;
+                  }
+
+                  handleNavClick(item.id);
+                }}
+                whileHover={{ y: -1 }}
+                whileTap={{ scale: 0.98 }}
+                className={`relative rounded-md px-3 py-2 text-sm font-semibold transition-colors ${
+                  isActive
+                    ? 'bg-javeriana-blue text-white dark:bg-javeriana-gold dark:text-javeriana-blue'
+                    : 'text-javeriana-blue hover:bg-javeriana-blue/5 hover:text-javeriana-blue-light dark:text-gray-200 dark:hover:bg-gray-800'
+                }`}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                {item.label}
+              </motion.a>
+            );
+          })}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+          <motion.a
+            href="https://www.javeriana.edu.co/estudia-en-la-javeriana"
+            target="_blank"
+            rel="noreferrer"
+            whileHover={{ y: -1, scale: 1.01 }}
+            whileTap={{ scale: 0.98 }}
+            className="inline-flex items-center gap-1.5 rounded-lg bg-[#F8CD00] px-2.5 py-2 text-xs font-bold text-javeriana-blue transition-colors hover:bg-javeriana-blue hover:text-white sm:gap-2 sm:px-3 lg:px-3 lg:text-xs xl:px-4 xl:text-sm whitespace-nowrap"
+          >
+            <ExternalLink className="h-4 w-4" aria-hidden="true" />
+            <span className="hidden xl:inline">Estudia en la Javeriana</span>
+            <span className="xl:hidden">Estudia</span>
+          </motion.a>
+
           <motion.button
             id="theme-toggle"
             type="button"
@@ -147,17 +307,33 @@ export function Header({ navItems, isDark, onToggleTheme }: HeaderProps) {
         </div>
       </div>
 
-      <div className="border-t border-javeriana-gold/20 px-4 py-2 lg:hidden">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-3">
-          {navItems.map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              className="rounded-full bg-javeriana-blue/5 px-3 py-1 text-xs font-semibold text-javeriana-blue dark:bg-javeriana-gold/10 dark:text-javeriana-gold-light"
-            >
-              {item.label}
-            </a>
-          ))}
+      <div className="border-t border-javeriana-gold/20 px-4 py-2 xl:hidden">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-2">
+          {navItems.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <a
+                key={item.id}
+                href={item.id === 'hero' ? '#' : `#${item.id}`}
+                onClick={(event) => {
+                  if (item.id === 'hero') {
+                    handleHomeClick(event);
+                    return;
+                  }
+
+                  handleNavClick(item.id);
+                }}
+                className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
+                  isActive
+                    ? 'bg-javeriana-blue text-white dark:bg-javeriana-gold dark:text-javeriana-blue'
+                    : 'bg-javeriana-blue/5 text-javeriana-blue dark:bg-javeriana-gold/10 dark:text-javeriana-gold-light'
+                }`}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            );
+          })}
         </div>
       </div>
     </header>
