@@ -29,11 +29,19 @@ interface SwaggerRequestLike {
 function createRequestInterceptor() {
   return (request: SwaggerRequestLike) => {
     const headers = request.headers ?? {};
+    const legacyApiKeyHeader = headers["API key"];
     const headerApiKey =
-      typeof headers.apikey === "string" ? headers.apikey.trim() : "";
+      typeof headers.apikey === "string"
+        ? headers.apikey.trim()
+        : typeof legacyApiKeyHeader === "string"
+          ? legacyApiKeyHeader.trim()
+          : "";
+
+    const sanitizedHeaders = { ...headers };
+    delete sanitizedHeaders["API key"];
 
     request.headers = {
-      ...headers,
+      ...sanitizedHeaders,
       ...(headerApiKey
         ? {
             apikey: headerApiKey,
