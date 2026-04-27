@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { motion } from 'framer-motion';
+import { BarChart3, Calendar, Trophy, GraduationCap } from 'lucide-react';
 import type { Lead, Program } from '../../types';
 
 interface LeadStatsProps {
@@ -52,26 +53,26 @@ export function LeadStats({ leads, programs }: LeadStatsProps) {
     {
       label: 'Total leads',
       value: stats.total,
-      icon: '📊',
+      Icon: BarChart3,
       color: 'bg-javeriana-blue text-white',
     },
     {
       label: 'Registros hoy',
       value: stats.todayLeads,
-      icon: '📅',
+      Icon: Calendar,
       color: 'bg-javeriana-gold text-javeriana-blue',
     },
     {
       label: 'Programa más popular',
       value: stats.topProgram,
       subtitle: stats.topProgramCount > 0 ? `${stats.topProgramCount} interesados` : undefined,
-      icon: '🏆',
+      Icon: Trophy,
       color: 'bg-javeriana-gold-bright text-javeriana-blue',
     },
     {
       label: 'Correos @javeriana',
       value: stats.javerianaEmails,
-      icon: '🎓',
+      Icon: GraduationCap,
       color: 'bg-javeriana-blue-light text-white',
     },
   ];
@@ -90,7 +91,7 @@ export function LeadStats({ leads, programs }: LeadStatsProps) {
             <p className="text-xs font-semibold uppercase tracking-wider opacity-80">
               {card.label}
             </p>
-            <span className="text-lg">{card.icon}</span>
+            <card.Icon className="h-5 w-5" aria-hidden="true" />
           </div>
           <p className="mt-2 truncate text-2xl font-bold">
             {card.value}

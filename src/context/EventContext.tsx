@@ -1,12 +1,23 @@
-import { createContext, useEffect, useReducer, type ReactNode } from 'react';
+import { createContext, useCallback, useEffect, useReducer, useRef, type ReactNode } from 'react';
 import type { EventAction, EventState } from '../types';
-import { fetchEvents } from '../services/eventService';
+import { fetchEvents, getCachedEvents } from '../services/eventService';
 
-const initialState: EventState = {
-  events: [],
-  loading: true,
-  error: null,
-};
+/**
+ * Inicializa el estado con datos en cache si están disponibles.
+ * Esto evita que la sección aparezca en blanco mientras se cargan datos remotos.
+ */
+function getInitialState(): EventState {
+  const cachedEvents = getCachedEvents();
+  const hasCachedData = cachedEvents.length > 0;
+
+  return {
+    events: cachedEvents,
+    loading: !hasCachedData, // Solo mostrar skeleton si no hay cache
+    error: null,
+  };
+}
+
+const initialState: EventState = getInitialState();
 
 function eventReducer(state: EventState, action: EventAction): EventState {
   switch (action.type) {
@@ -29,6 +40,7 @@ function eventReducer(state: EventState, action: EventAction): EventState {
 interface EventContextValue {
   state: EventState;
   dispatch: React.Dispatch<EventAction>;
+  reloadEvents: () => Promise<void>;
 }
 
 export const EventContext = createContext<EventContextValue | null>(null);
@@ -39,32 +51,32 @@ interface EventProviderProps {
 
 export function EventProvider({ children }: EventProviderProps) {
   const [state, dispatch] = useReducer(eventReducer, initialState);
+  const lastRequestId = useRef(0);
 
-  useEffect(() => {
-    let cancelled = false;
+  const reloadEvents = useCallback(async () => {
+    const requestId = lastRequestId.current + 1;
+    lastRequestId.current = requestId;
 
-    async function loadEvents() {
-      try {
-        dispatch({ type: 'SET_LOADING', payload: true });
-        const events = await fetchEvents();
+    try {
+      dispatch({ type: 'SET_LOADING', payload: true });
+      const events = await fetchEvents();
 
-        if (!cancelled) {
-          dispatch({ type: 'SET_EVENTS', payload: events });
-        }
-      } catch (err) {
-        if (!cancelled) {
-          const message = err instanceof Error ? err.message : 'Error desconocido';
-          dispatch({ type: 'SET_ERROR', payload: message });
-        }
+      if (lastRequestId.current === requestId) {
+        dispatch({ type: 'SET_EVENTS', payload: events });
       }
+    } catch (err) {
+      if (lastRequestId.current !== requestId) {
+        return;
+      }
+
+      const message = err instanceof Error ? err.message : 'Error desconocido';
+      dispatch({ type: 'SET_ERROR', payload: message });
     }
-
-    loadEvents();
-
-    return () => {
-      cancelled = true;
-    };
   }, []);
 
-  return <EventContext.Provider value={{ state, dispatch }}>{children}</EventContext.Provider>;
+  useEffect(() => {
+    void reloadEvents();
+  }, [reloadEvents]);
+
+  return <EventContext.Provider value={{ state, dispatch, reloadEvents }}>{children}</EventContext.Provider>;
 }

@@ -1,5 +1,6 @@
 import { useState, type FormEvent, type ChangeEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { User, Mail, Phone, BookOpen, CheckCircle, Lightbulb } from 'lucide-react';
 import { useLeads } from '../../hooks/useLeads';
 import { usePrograms } from '../../hooks/usePrograms';
 import type { LeadFormData } from '../../types';
@@ -124,9 +125,10 @@ export function LeadForm() {
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
-            className="rounded-card border border-success/30 bg-success/10 px-4 py-3 text-sm font-medium text-success"
+            className="rounded-card border border-success/30 bg-success/10 px-4 py-3 text-sm font-medium text-success flex items-center gap-3"
           >
-            ✓ Lead registrado exitosamente. Los datos se almacenaron localmente y se enviaron al servidor.
+            <CheckCircle className="h-5 w-5 shrink-0" aria-hidden="true" />
+            <span>Lead registrado exitosamente. Los datos se almacenaron localmente y se enviaron al servidor.</span>
           </motion.div>
         )}
       </AnimatePresence>
@@ -134,7 +136,8 @@ export function LeadForm() {
       <div className="grid gap-5 sm:grid-cols-2">
         {/* Nombre */}
         <div>
-          <label htmlFor="first_name" className="mb-1.5 block text-sm font-semibold text-javeriana-blue dark:text-javeriana-gold-light">
+          <label htmlFor="first_name" className="mb-1.5 flex items-center gap-2 text-sm font-semibold text-javeriana-blue dark:text-javeriana-gold-light">
+            <User className="h-4 w-4" aria-hidden="true" />
             Nombre <span className="text-error">*</span>
           </label>
           <input
@@ -159,7 +162,8 @@ export function LeadForm() {
 
         {/* Apellido */}
         <div>
-          <label htmlFor="last_name" className="mb-1.5 block text-sm font-semibold text-javeriana-blue dark:text-javeriana-gold-light">
+          <label htmlFor="last_name" className="mb-1.5 flex items-center gap-2 text-sm font-semibold text-javeriana-blue dark:text-javeriana-gold-light">
+            <User className="h-4 w-4" aria-hidden="true" />
             Apellido <span className="text-error">*</span>
           </label>
           <input
@@ -185,7 +189,8 @@ export function LeadForm() {
 
       {/* Email */}
       <div>
-        <label htmlFor="email" className="mb-1.5 block text-sm font-semibold text-javeriana-blue dark:text-javeriana-gold-light">
+        <label htmlFor="email" className="mb-1.5 flex items-center gap-2 text-sm font-semibold text-javeriana-blue dark:text-javeriana-gold-light">
+          <Mail className="h-4 w-4" aria-hidden="true" />
           Correo electrónico <span className="text-error">*</span>
         </label>
         <input
@@ -210,16 +215,18 @@ export function LeadForm() {
           <button
             type="button"
             onClick={applyEmailHint}
-            className="mt-1 text-xs text-javeriana-gold-bright hover:underline"
+            className="mt-1 inline-flex items-center gap-1 text-xs text-javeriana-gold-bright hover:underline"
           >
-            💡 {emailHint}
+            <Lightbulb className="h-3 w-3" aria-hidden="true" />
+            {emailHint}
           </button>
         )}
       </div>
 
       {/* Teléfono */}
       <div>
-        <label htmlFor="phone" className="mb-1.5 block text-sm font-semibold text-javeriana-blue dark:text-javeriana-gold-light">
+        <label htmlFor="phone" className="mb-1.5 flex items-center gap-2 text-sm font-semibold text-javeriana-blue dark:text-javeriana-gold-light">
+          <Phone className="h-4 w-4" aria-hidden="true" />
           Teléfono <span className="text-xs font-normal text-text-secondary dark:text-gray-400">(opcional)</span>
         </label>
         <input
@@ -243,7 +250,8 @@ export function LeadForm() {
 
       {/* Programa */}
       <div>
-        <label htmlFor="program_id" className="mb-1.5 block text-sm font-semibold text-javeriana-blue dark:text-javeriana-gold-light">
+        <label htmlFor="program_id" className="mb-1.5 flex items-center gap-2 text-sm font-semibold text-javeriana-blue dark:text-javeriana-gold-light">
+          <BookOpen className="h-4 w-4" aria-hidden="true" />
           Programa de interés <span className="text-error">*</span>
         </label>
         <select

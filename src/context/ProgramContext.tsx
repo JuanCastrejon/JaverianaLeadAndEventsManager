@@ -1,27 +1,48 @@
-import { createContext, useReducer, useEffect, type ReactNode } from 'react';
+import { createContext, useCallback, useEffect, useReducer, useRef, type ReactNode } from 'react';
 import type { ProgramState, ProgramAction, Program } from '../types';
-import { fetchPrograms } from '../services/programService';
+import { fetchPrograms, getCachedPrograms } from '../services/programService';
 
-const initialState: ProgramState = {
-  programs: [],
-  filteredPrograms: [],
-  searchQuery: '',
-  selectedCategory: '',
-  loading: true,
-  error: null,
-};
+/**
+ * Inicializa el estado con datos en cache si están disponibles.
+ * Esto evita que la sección aparezca en blanco mientras se cargan datos remotos.
+ */
+function getInitialState(): ProgramState {
+  const cachedPrograms = getCachedPrograms();
+  const hasCachedData = cachedPrograms.length > 0;
+
+  return {
+    programs: cachedPrograms,
+    filteredPrograms: cachedPrograms,
+    searchQuery: '',
+    selectedCategory: '',
+    loading: !hasCachedData, // Solo mostrar skeleton si no hay cache
+    error: null,
+  };
+}
+
+const initialState: ProgramState = getInitialState();
+
+/**
+ * Elimina diacríticos (tildes, diéresis) de un string para búsqueda por proximidad.
+ * "Ingeniería" → "ingenieria", "Educación" → "educacion"
+ */
+function stripDiacritics(text: string): string {
+  return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+}
 
 function filterPrograms(
   programs: Program[],
   searchQuery: string,
   selectedCategory: string,
 ): Program[] {
+  const normalizedQuery = stripDiacritics(searchQuery);
+
   return programs.filter((program) => {
     const matchesSearch =
-      !searchQuery ||
-      program.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      program.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      program.faculty.toLowerCase().includes(searchQuery.toLowerCase());
+      !normalizedQuery ||
+      stripDiacritics(program.name).includes(normalizedQuery) ||
+      stripDiacritics(program.description).includes(normalizedQuery) ||
+      stripDiacritics(program.faculty).includes(normalizedQuery);
 
     const matchesCategory =
       !selectedCategory || program.category === selectedCategory;
@@ -99,6 +120,7 @@ function programReducer(
 interface ProgramContextValue {
   state: ProgramState;
   dispatch: React.Dispatch<ProgramAction>;
+  reloadPrograms: () => Promise<void>;
 }
 
 export const ProgramContext = createContext<ProgramContextValue | null>(null);
@@ -109,35 +131,35 @@ interface ProgramProviderProps {
 
 export function ProgramProvider({ children }: ProgramProviderProps) {
   const [state, dispatch] = useReducer(programReducer, initialState);
+  const lastRequestId = useRef(0);
 
-  useEffect(() => {
-    let cancelled = false;
+  const reloadPrograms = useCallback(async () => {
+    const requestId = lastRequestId.current + 1;
+    lastRequestId.current = requestId;
 
-    async function loadPrograms() {
-      try {
-        dispatch({ type: 'SET_LOADING', payload: true });
-        const programs = await fetchPrograms();
-        if (!cancelled) {
-          dispatch({ type: 'SET_PROGRAMS', payload: programs });
-        }
-      } catch (err) {
-        if (!cancelled) {
-          const message =
-            err instanceof Error ? err.message : 'Error desconocido';
-          dispatch({ type: 'SET_ERROR', payload: message });
-        }
+    try {
+      dispatch({ type: 'SET_LOADING', payload: true });
+      const programs = await fetchPrograms();
+
+      if (lastRequestId.current === requestId) {
+        dispatch({ type: 'SET_PROGRAMS', payload: programs });
       }
+    } catch (err) {
+      if (lastRequestId.current !== requestId) {
+        return;
+      }
+
+      const message = err instanceof Error ? err.message : 'Error desconocido';
+      dispatch({ type: 'SET_ERROR', payload: message });
     }
-
-    loadPrograms();
-
-    return () => {
-      cancelled = true;
-    };
   }, []);
 
+  useEffect(() => {
+    void reloadPrograms();
+  }, [reloadPrograms]);
+
   return (
-    <ProgramContext.Provider value={{ state, dispatch }}>
+    <ProgramContext.Provider value={{ state, dispatch, reloadPrograms }}>
       {children}
     </ProgramContext.Provider>
   );
