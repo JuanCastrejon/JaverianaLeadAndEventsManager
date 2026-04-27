@@ -15,8 +15,8 @@ const sectionVariants: Variants = {
   },
 };
 
+const DEFAULT_SWAGGER_BASE_URL = "https://dpoysijrptxtpfumawju.supabase.co";
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined;
-const hasSwaggerSource = Boolean(supabaseUrl?.trim());
 
 interface SwaggerRequestLike {
   headers?: Record<string, string | number | boolean | null | undefined>;
@@ -48,9 +48,13 @@ function createRequestInterceptor() {
 }
 
 export function ApiDocsSection() {
-  const swaggerSpec = hasSwaggerSource
-    ? buildApiDocsSpec(supabaseUrl as string)
-    : null;
+  const configuredSwaggerBaseUrl = supabaseUrl?.trim() ?? "";
+  const isUsingFallbackSwaggerSource = configuredSwaggerBaseUrl.length === 0;
+  const swaggerSpec = buildApiDocsSpec(
+    isUsingFallbackSwaggerSource
+      ? DEFAULT_SWAGGER_BASE_URL
+      : configuredSwaggerBaseUrl,
+  );
 
   useEffect(() => {
     // Reemplazar (apiKey) con (API key) en el modal de Swagger
@@ -129,30 +133,27 @@ export function ApiDocsSection() {
           </div>
         </div>
 
-        {swaggerSpec ? (
-          <div className="swagger-shell overflow-auto rounded-card border border-javeriana-blue/10 bg-white p-4 shadow-card dark:border-javeriana-gold/20 dark:bg-surface-dark-alt md:p-6">
-            <div className="mb-4 rounded-input border border-javeriana-gold/35 bg-javeriana-gold/10 px-3 py-2 text-xs">
-              🔐 Ingresa tu <strong>API key</strong> en el campo de autorización
-              para ejecutar consultas contra la API.
-            </div>
+        <div className="swagger-shell overflow-auto rounded-card border border-javeriana-blue/10 bg-white p-4 shadow-card dark:border-javeriana-gold/20 dark:bg-surface-dark-alt md:p-6">
+          <div className="mb-4 rounded-input border border-javeriana-gold/35 bg-javeriana-gold/10 px-3 py-2 text-xs">
+            🔐 Ingresa tu <strong>API key</strong> en el campo de autorización
+            para ejecutar consultas contra la API.
+            {isUsingFallbackSwaggerSource ? (
+              <p className="mt-1 text-[11px] text-text-secondary dark:text-gray-300">
+                Entorno sin VITE_SUPABASE_URL: se usa servidor por defecto para
+                la documentación.
+              </p>
+            ) : null}
+          </div>
 
-            <SwaggerUI
-              spec={swaggerSpec}
-              docExpansion="list"
-              defaultModelsExpandDepth={-1}
-              displayRequestDuration
-              persistAuthorization={false}
-              requestInterceptor={createRequestInterceptor()}
-            />
-          </div>
-        ) : (
-          <div className="rounded-card border border-amber-300 bg-amber-50 p-6 text-amber-900">
-            <p className="font-semibold">No se pudo inicializar Swagger UI.</p>
-            <p className="mt-2 text-sm">
-              Configura VITE_SUPABASE_URL en tu archivo .env.
-            </p>
-          </div>
-        )}
+          <SwaggerUI
+            spec={swaggerSpec}
+            docExpansion="list"
+            defaultModelsExpandDepth={-1}
+            displayRequestDuration
+            persistAuthorization={false}
+            requestInterceptor={createRequestInterceptor()}
+          />
+        </div>
       </motion.section>
     </>
   );

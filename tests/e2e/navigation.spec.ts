@@ -4,22 +4,22 @@ test.describe('@smoke navegación principal', () => {
   test('abre la página y navega a las secciones lazy', async ({ page }) => {
     await page.goto('/');
 
-    await expect(page.getByRole('heading', { name: 'Gestión de prospectos y oferta académica' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Gestión de prospectos y oferta académica', exact: true })).toBeVisible();
 
     await page.getByRole('link', { name: 'Programas' }).click();
-    await expect(page.getByRole('heading', { name: 'Programas académicos' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Programas académicos', exact: true })).toBeVisible();
 
     await page.getByRole('link', { name: 'Eventos' }).click();
-    await expect(page.getByRole('heading', { name: 'Eventos Javeriana' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Eventos Javeriana', exact: true })).toBeVisible();
 
     await page.getByRole('link', { name: 'Inscripción' }).click();
-    await expect(page.getByRole('heading', { name: 'Registro de interés' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Registro de interés', exact: true })).toBeVisible();
 
     await page.getByRole('link', { name: 'Leads' }).click();
-    await expect(page.getByRole('heading', { name: 'Leads registrados' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Leads registrados', exact: true })).toBeVisible();
 
     await page.getByRole('link', { name: 'API Docs' }).click();
-    await expect(page.getByRole('heading', { name: 'Documentación API' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Documentación API', exact: true })).toBeVisible();
     await expect(page.locator('.swagger-ui')).toBeVisible();
     await expect(page.getByText('Failed to load API definition.')).toHaveCount(0);
     await expect(page.getByText('/programs')).toBeVisible();
