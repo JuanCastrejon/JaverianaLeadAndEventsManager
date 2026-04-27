@@ -82,43 +82,21 @@ export function ProgramGrid({ programs, loading, error, onRetry }: ProgramGridPr
   }
 
   return (
-    <motion.div
-      className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3"
-      initial="hidden"
-      animate="visible"
-      variants={{
-        hidden: {},
-        visible: {
-          transition: {
-            staggerChildren: 0.06,
-            delayChildren: 0.04,
-          },
-        },
-      }}
-    >
-      <AnimatePresence mode="popLayout">
-        {programs.map((program) => (
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <AnimatePresence mode="sync">
+        {programs.map((program, index) => (
           <motion.div
             key={program.id}
-            layout
             className="h-full"
-            variants={{
-              hidden: { opacity: 0, y: 14, scale: 0.98 },
-              visible: {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                transition: { duration: 0.32, ease: 'easeOut' },
-              },
-            }}
-            initial="hidden"
-            animate="visible"
+            initial={{ opacity: 0, y: 14, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.32, ease: 'easeOut', delay: Math.min(index * 0.06, 0.6) }}
             exit={{ opacity: 0, y: -10, scale: 0.98, transition: { duration: 0.2 } }}
           >
             <ProgramCard program={program} />
           </motion.div>
         ))}
       </AnimatePresence>
-    </motion.div>
+    </div>
   );
 }

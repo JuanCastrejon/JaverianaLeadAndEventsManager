@@ -23,10 +23,8 @@ export function ProgramFilters({
     <motion.div
       className="mb-8 rounded-card border border-gray-100 bg-white p-5 shadow-card dark:border-gray-800 dark:bg-surface-dark-alt"
       initial={{ opacity: 0, y: 14 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.35 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, ease: 'easeOut' }}
-      layout
     >
       <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
         <label className="block">
@@ -62,7 +60,7 @@ export function ProgramFilters({
         </div>
       </div>
 
-      <motion.div layout className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-4 flex flex-wrap gap-2">
         <motion.button
           type="button"
           onClick={() => {
@@ -70,7 +68,6 @@ export function ProgramFilters({
           }}
           whileHover={{ y: -1 }}
           whileTap={{ scale: 0.98 }}
-          layout
           className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold transition-colors ${
             selectedCategory === ''
               ? 'bg-javeriana-blue text-white'
@@ -90,7 +87,6 @@ export function ProgramFilters({
             }}
             whileHover={{ y: -1 }}
             whileTap={{ scale: 0.98 }}
-            layout
             className={`rounded-full px-4 py-2 text-xs font-bold transition-colors ${
               selectedCategory === category
                 ? 'bg-javeriana-gold text-javeriana-blue'
@@ -100,7 +96,8 @@ export function ProgramFilters({
             {category} ({categoryCount[category] ?? 0})
           </motion.button>
         ))}
-      </motion.div>
+      </div>
     </motion.div>
   );
 }
+

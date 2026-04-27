@@ -1,13 +1,8 @@
-import { motion, type Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useEvents } from '../../hooks/useEvents';
 import { SECTIONS } from '../../utils/constants';
 import { SectionTitle } from '../layout/SectionTitle';
 import { EventGrid } from '../events/EventGrid';
-
-const sectionVariants: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } },
-};
 
 export function EventSection() {
   const { events, loading, error, reloadEvents } = useEvents();
@@ -17,10 +12,9 @@ export function EventSection() {
       <div id={SECTIONS.EVENTS} style={{ scrollMarginTop: '163px' }} />
       <motion.section
         className="mt-25 text-text-primary dark:text-text-light"
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, ease: 'easeOut' }}
       >
         <SectionTitle
           title="Eventos Javeriana"
