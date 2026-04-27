@@ -46,8 +46,8 @@ export function LeadList({ leads, programs, onDelete }: LeadListProps) {
       </div>
 
       {/* Desktop table */}
-      <div className="hidden md:block">
-        <table className="w-full text-left text-sm">
+      <div className="hidden md:block overflow-x-auto">
+        <table className="min-w-[900px] w-full text-left text-sm">
           <thead>
             <tr className="border-b border-gray-100 text-xs uppercase tracking-wider text-text-secondary dark:border-gray-800 dark:text-gray-400">
               <th className="px-4 py-3 font-semibold">
