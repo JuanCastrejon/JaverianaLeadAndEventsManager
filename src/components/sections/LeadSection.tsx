@@ -1,4 +1,4 @@
-import { motion, type Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
 import type { Lead, Program } from '../../types';
 import { SECTIONS } from '../../utils/constants';
 import { SectionTitle } from '../layout/SectionTitle';
@@ -12,21 +12,15 @@ interface LeadSectionProps {
   onDelete: (id: string) => void;
 }
 
-const sectionVariants: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } },
-};
-
 export function LeadSection({ leads, programs, onDelete }: LeadSectionProps) {
   return (
     <>
       <div id={SECTIONS.LEAD_FORM} style={{ scrollMarginTop: '163px' }} />
       <motion.section
         className="mt-25 text-text-primary dark:text-text-light"
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, ease: 'easeOut' }}
       >
         <SectionTitle
           title="Registro de interés"
